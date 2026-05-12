@@ -1,55 +1,68 @@
-import type { ExerciseFormData } from '../types';
+import type { ExerciseFormData, Training } from '../types';
+import trainingsData from '../data/trainings.json';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL;
+// Estado local em memória — simula o banco de dados enquanto a sessão está aberta
+let localData: typeof trainingsData = JSON.parse(JSON.stringify(trainingsData));
 
-export async function getTrainings() {
-  const res = await fetch(`${API_BASE}/data/ler_treinos`);
-  return res.json();
+// Contador para gerar IDs únicos de novos treinos e exercícios
+let nextTrainingId = Math.max(...localData.data.map((t) => t.id)) + 1;
+let nextExerciseId =
+  Math.max(...localData.data.flatMap((t) => t.exercicios.map((e) => e.id))) + 1;
+
+export async function getTrainings(): Promise<{ success: boolean; data: Training[] }> {
+  return structuredClone(localData);
 }
 
-export async function deleteTrainingService(id: number) {
-  return fetch(`${API_BASE}/data/deletar_treino/${id}`, {
-    method: 'DELETE',
-  });
+export async function deleteTrainingService(id: number): Promise<{ ok: boolean }> {
+  localData.data = localData.data.filter((t) => t.id !== id);
+  return { ok: true };
 }
 
 export async function updateExerciseService(
   exerciseId: number,
   data: ExerciseFormData
-) {
-  const payload = {
-    nome_exercicio: data.nomeExercicio,
-    serie: data.serie,
-    repeticao: data.repeticoes,
-  };
-
-  return fetch(`${API_BASE}/data/atualizar_treino/${exerciseId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  });
+): Promise<{ ok: boolean }> {
+  for (const training of localData.data) {
+    const ex = training.exercicios.find((e) => e.id === exerciseId);
+    if (ex) {
+      ex.nome_exercicio = data.nomeExercicio;
+      ex.series = Number(data.serie);
+      ex.repeticoes = Number(data.repeticoes);
+      return { ok: true };
+    }
+  }
+  return { ok: false };
 }
 
 export async function createTrainingService(trainingData: {
   nome: string;
   exercicios: ExerciseFormData[];
-}) {
-  const payload = {
+}): Promise<{ ok: boolean; status: number; json: () => Promise<{ error: string }> }> {
+  // Verifica nome duplicado
+  const exists = localData.data.some(
+    (t) => t.nome.toLowerCase() === trainingData.nome.toLowerCase()
+  );
+
+  if (exists) {
+    return {
+      ok: false,
+      status: 409,
+      json: async () => ({ error: 'Já existe um treino com esse nome.' }),
+    };
+  }
+
+  const newTraining: Training = {
+    id: nextTrainingId++,
     nome: trainingData.nome,
     exercicios: trainingData.exercicios.map((ex) => ({
-      nomeExercicio: ex.nomeExercicio,
-      serie: ex.serie,
-      repeticoes: ex.repeticoes,
+      id: nextExerciseId++,
+      nome_exercicio: ex.nomeExercicio,
+      series: Number(ex.serie),
+      repeticoes: Number(ex.repeticoes),
     })),
   };
 
-  return fetch(`${API_BASE}/data/salvar_treinos`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  });
+  localData.data.push(newTraining);
+
+  return { ok: true, status: 201, json: async () => ({ error: '' }) };
 }

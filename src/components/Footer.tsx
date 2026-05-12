@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const baseUrl = import.meta.env.BASE_URL;
 
@@ -9,8 +9,10 @@ const navItems = [
   { to: '/conta', label: '', icon: `${baseUrl}account.png` },
 ];
 
-
 export default function Footer() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   return (
     <footer className="bg-[#3588d4] w-full h-[8dvh] flex z-50">
       {navItems.map((item) => (
@@ -28,7 +30,9 @@ export default function Footer() {
               <img
                 src={item.icon}
                 alt={item.label}
-                className="w-6 h-6"
+                className={`w-6 h-6 transition-transform ${
+                  currentPath === item.to ? 'scale-110' : 'opacity-70'
+                }`}
               />
             ) : (
               item.icon
