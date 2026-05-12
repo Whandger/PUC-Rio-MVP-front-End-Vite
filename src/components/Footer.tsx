@@ -1,11 +1,14 @@
 import { NavLink } from 'react-router-dom';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const navItems = [
-  { to: '/', label: '', icon: '/home.png' },
-  { to: '/treino', label: '', icon: '/gymWeight.png' },
-  { to: '/historico', label: '', icon: '/list.png' },
-  { to: '/conta', label: '', icon: '/account.png' },
+  { to: '/', label: '', icon: `${baseUrl}home.png` },
+  { to: '/treino', label: '', icon: `${baseUrl}gymWeight.png` },
+  { to: '/historico', label: '', icon: `${baseUrl}list.png` },
+  { to: '/conta', label: '', icon: `${baseUrl}account.png` },
 ];
+
 
 export default function Footer() {
   return (

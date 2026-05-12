@@ -1,16 +1,13 @@
-import type { ExerciseFormData } from '../../types';
+import type { ExerciseFormData } from "../../types";
 
-import ExerciseRow from './ExerciseRow';
+import ExerciseRow from "./ExerciseRow";
 
-import { useAddTrainingForm } from '../../hooks/useAddTrainingForm';
+import { useAddTrainingForm } from "../../hooks/useAddTrainingForm";
 
 interface Props {
   visible: boolean;
 
-  onAdd: (data: {
-    nome: string;
-    exercicios: ExerciseFormData[];
-  }) => void;
+  onAdd: (data: { nome: string; exercicios: ExerciseFormData[] }) => void;
 
   onCancel: () => void;
 
@@ -23,6 +20,7 @@ export default function AddTrainingForm({
   onCancel,
   onToggle,
 }: Props) {
+  const baseUrl = import.meta.env.BASE_URL;
   const {
     nomeTreino,
     exercicios,
@@ -53,9 +51,7 @@ export default function AddTrainingForm({
             placeholder="Nome do treino"
             className="border-b-2 border-[#2686cf] outline-none text-lg pb-1"
             value={nomeTreino}
-            onChange={(e) =>
-              setNomeTreino(e.target.value)
-            }
+            onChange={(e) => setNomeTreino(e.target.value)}
             required
           />
 
@@ -63,9 +59,7 @@ export default function AddTrainingForm({
             <ExerciseRow
               key={idx}
               values={ex}
-              onChange={(field, val) =>
-                updateRow(idx, field, val)
-              }
+              onChange={(field, val) => updateRow(idx, field, val)}
             />
           ))}
 
@@ -79,7 +73,7 @@ export default function AddTrainingForm({
 
           <div className="flex justify-center gap-8">
             <img
-              src="/trash_icon.svg"
+              src={`${baseUrl}trash_icon.svg`}
               alt="Cancelar"
               className="w-6 opacity-60 cursor-pointer"
               onClick={onCancel}
@@ -87,7 +81,7 @@ export default function AddTrainingForm({
 
             <button type="submit">
               <img
-                src="/disk_icon.svg"
+                src={`${baseUrl}disk_icon.svg`}
                 alt="Salvar"
                 className="w-6 opacity-60 cursor-pointer"
               />
