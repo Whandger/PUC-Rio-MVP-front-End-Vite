@@ -1,0 +1,31 @@
+import type { Training, ExerciseFormData } from '../../types';
+import TrainingCard from './TrainingCard';
+
+interface Props {
+  trainings: Training[];
+  onDelete: (id: number) => void;
+  onUpdateExercise: (exerciseId: number, data: ExerciseFormData) => void;
+}
+
+export default function TrainingList({ trainings, onDelete, onUpdateExercise }: Props) {
+  if (trainings.length === 0) {
+    return (
+      <div className="w-[92%] bg-white rounded-lg shadow p-4 text-center text-gray-500">
+        Nenhum treino encontrado
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {trainings.map((training) => (
+        <TrainingCard
+          key={training.id}
+          training={training}
+          onDelete={onDelete}
+          onUpdateExercise={onUpdateExercise}
+        />
+      ))}
+    </>
+  );
+}
