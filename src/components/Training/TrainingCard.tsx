@@ -8,6 +8,7 @@ interface Props {
 }
 
 export default function TrainingCard({ training, onDelete, onUpdateExercise }: Props) {
+  const baseUrl = import.meta.env.BASE_URL;
   const [expanded, setExpanded] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editValues, setEditValues] = useState<ExerciseFormData>({
@@ -80,7 +81,7 @@ export default function TrainingCard({ training, onDelete, onUpdateExercise }: P
                     onChange={(e) => setEditValues({ ...editValues, repeticoes: e.target.value })}
                   />
                   <div className="justify-self-center cursor-pointer" onClick={saveEditing}>
-                    💾
+                    <img src={`${baseUrl}disk_icon.svg`} className='h-6 w-6 opacity-60' />
                   </div>
                 </>
               ) : (
@@ -108,10 +109,10 @@ export default function TrainingCard({ training, onDelete, onUpdateExercise }: P
             <div></div>
             <div></div>
             <div
-              className="justify-self-center cursor-pointer opacity-50 hover:opacity-100"
+              className="justify-self-center cursor-pointer"
               onClick={() => onDelete(training.id)}
             >
-              🗑️
+              <img src={`${baseUrl}trash_icon.svg`} className='h-6 w-6 opacity-60' />
             </div>
           </div>
         </div>
