@@ -6,7 +6,7 @@ import './index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/PUC-Rio-MVP-front-End-Vite">
       <App />
     </BrowserRouter>
   </StrictMode>
