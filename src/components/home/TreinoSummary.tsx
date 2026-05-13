@@ -1,4 +1,4 @@
-import { useTreinoSummary } from '../../hooks/useTreinoSummary';
+import { useTreinoSummary } from "../../hooks/useTreinoSummary";
 
 export default function TreinoSummary() {
   const { training } = useTreinoSummary();
@@ -6,33 +6,26 @@ export default function TreinoSummary() {
   if (!training) {
     return (
       <section className="bg-white w-[92%] rounded-lg shadow-md p-4">
-        <p className="text-gray-500">
-          Nenhum treino cadastrado
-        </p>
+        <p className="text-gray-500">Nenhum treino cadastrado</p>
       </section>
     );
   }
 
-  const exerciciosStr = training.exercicios
-    .map(
-      (ex) =>
-        `${ex.nome_exercicio} ${ex.series}x${ex.repeticoes}`
-    )
-    .join(', ');
-
   return (
     <section className="bg-white w-[92%] rounded-lg shadow-md p-4">
       <div className="flex justify-between items-center mb-2">
-        <h3 className="text-gray-700 font-bold text-base">
-          Treino
-        </h3>
+        <h3 className="text-gray-700 font-bold text-base">{training.nome}</h3>
 
-        <p className="text-[#3588d4] font-bold text-sm">
-          Alterar Treinos
-        </p>
+        <p className="text-[#3588d4] font-bold text-sm">Alterar Treinos</p>
       </div>
 
-      <p className="text-gray-600">{exerciciosStr}</p>
+      <div className="flex flex-col gap-1">
+        {training.exercicios.map((ex: any, index: number) => (
+          <p key={index} className="text-gray-600">
+            {ex.nome_exercicio} {ex.series}x{ex.repeticoes}
+          </p>
+        ))}
+      </div>
     </section>
   );
 }

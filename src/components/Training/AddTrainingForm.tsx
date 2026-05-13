@@ -1,8 +1,7 @@
 import type { ExerciseFormData } from "../../types";
-
 import ExerciseRow from "./ExerciseRow";
-
 import { useAddTrainingForm } from "../../hooks/useAddTrainingForm";
+import { useExerciciosData } from '../../hooks/useExerciciosData';
 
 interface Props {
   visible: boolean;
@@ -21,12 +20,11 @@ export default function AddTrainingForm({
   onToggle,
 }: Props) {
   const baseUrl = import.meta.env.BASE_URL;
+  const exerciciosJSON = useExerciciosData();
   const {
     nomeTreino,
     exercicios,
-
     setNomeTreino,
-
     addRow,
     updateRow,
     handleSubmit,
@@ -59,6 +57,7 @@ export default function AddTrainingForm({
             <ExerciseRow
               key={idx}
               values={ex}
+              exerciciosData={exerciciosJSON}
               onChange={(field, val) => updateRow(idx, field, val)}
             />
           ))}

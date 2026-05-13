@@ -15,4 +15,5 @@ export interface ExerciseFormData {
   nomeExercicio: string;
   serie: string;
   repeticoes: string;
+  jsonId?: string; // ID do exercício no JSON
 }
