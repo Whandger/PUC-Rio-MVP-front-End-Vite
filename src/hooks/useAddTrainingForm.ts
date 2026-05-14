@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import type { ExerciseFormData } from '../types';
+import type { ExerciseFormData } from "../types";
 
 interface AddTrainingData {
   nome: string;
@@ -12,15 +12,13 @@ interface Params {
 }
 
 export function useAddTrainingForm({ onAdd }: Params) {
-  const [nomeTreino, setNomeTreino] = useState('');
+  const [nomeTreino, setNomeTreino] = useState("");
 
-  const [exercicios, setExercicios] = useState<
-    ExerciseFormData[]
-  >([
+  const [exercicios, setExercicios] = useState<ExerciseFormData[]>([
     {
-      nomeExercicio: '',
-      serie: '',
-      repeticoes: '',
+      nomeExercicio: "",
+      serie: "",
+      repeticoes: "",
     },
   ]);
 
@@ -28,9 +26,9 @@ export function useAddTrainingForm({ onAdd }: Params) {
     setExercicios([
       ...exercicios,
       {
-        nomeExercicio: '',
-        serie: '',
-        repeticoes: '',
+        nomeExercicio: "",
+        serie: "",
+        repeticoes: "",
       },
     ]);
   }
@@ -38,23 +36,26 @@ export function useAddTrainingForm({ onAdd }: Params) {
   function updateRow(
     index: number,
     field: keyof ExerciseFormData,
-    value: string
+    value: string,
   ) {
-    const newExercicios = [...exercicios];
-
-    newExercicios[index][field] = value;
-
-    setExercicios(newExercicios);
+    setExercicios((prev) => {
+      const newExercicios = [...prev];
+      newExercicios[index] = {
+        ...newExercicios[index],
+        [field]: value,
+      };
+      return newExercicios;
+    });
   }
 
   function resetForm() {
-    setNomeTreino('');
+    setNomeTreino("");
 
     setExercicios([
       {
-        nomeExercicio: '',
-        serie: '',
-        repeticoes: '',
+        nomeExercicio: "",
+        serie: "",
+        repeticoes: "",
       },
     ]);
   }
@@ -63,15 +64,13 @@ export function useAddTrainingForm({ onAdd }: Params) {
     e.preventDefault();
 
     if (!nomeTreino.trim()) {
-      return alert('Informe o nome do treino');
+      return alert("Informe o nome do treino");
     }
 
-    const validExercises = exercicios.filter((ex) =>
-      ex.nomeExercicio.trim()
-    );
+    const validExercises = exercicios.filter((ex) => ex.nomeExercicio.trim());
 
     if (validExercises.length === 0) {
-      return alert('Adicione pelo menos um exercício');
+      return alert("Adicione pelo menos um exercício");
     }
 
     onAdd({
