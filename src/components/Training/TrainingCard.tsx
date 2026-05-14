@@ -201,7 +201,9 @@ export default function TrainingCard({
                   <span className="w-12 text-center">
                     {ex.repeticoes || "0"}
                   </span>
-                  <span className="w-12 text-center">{ex.peso || "-"}</span>
+                  <span className="w-12 text-center">
+                    {ex.peso ? `${ex.peso} kg` : "-"}
+                  </span>
                   <span className="w-6"></span> {/* espaço da lixeira */}
                 </div>
               ))}
