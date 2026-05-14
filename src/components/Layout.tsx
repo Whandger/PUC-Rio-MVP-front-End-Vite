@@ -2,17 +2,16 @@ import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 
+
 export default function Layout() {
   return (
-    <div className="flex flex-col lg:flex-row h-dvh overflow-hidden font-sans">
-      {/* Header - visível apenas no mobile */}
-      <div className="lg:hidden">
-        <Header />
-      </div>
+    <div className="flex flex-col h-dvh overflow-hidden font-sans">
+      {/* Header - visível em todos os tamanhos, sempre no topo */}
+      <Header />
       
       {/* Container principal */}
-      <div className="flex flex-1 overflow-hidden lg:flex-row flex-col">
-        {/* Footer - aparece na esquerda no desktop e é escondido no celular */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Footer - aparece na esquerda apenas no desktop */}
         <div className="hidden lg:flex">
           <Footer />
         </div>
