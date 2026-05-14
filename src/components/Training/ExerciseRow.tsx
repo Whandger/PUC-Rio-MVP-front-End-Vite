@@ -63,6 +63,9 @@ export default function ExerciseRow({
     setExerciseOpen(false);
   };
 
+  // Verifica se pode digitar ou deve mostrar dropdown
+  const isMuscleSelected = selectedMuscle !== "Músculo";
+
   return (
     <div className="flex gap-2 w-full items-start">
       {/* Coluna Músculo */}
@@ -91,34 +94,49 @@ export default function ExerciseRow({
 
       {/* Coluna Exercício */}
       <div className="flex-1 min-w-0 relative" ref={exerciseRef}>
-        <input
-          type="text"
-          placeholder="Exercício"
-          className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm"
-          value={values.nomeExercicio}
-          readOnly
-          onClick={() => setExerciseOpen((prev) => !prev)}
-          required
-        />
-        {exerciseOpen && filteredExercises.length > 0 && (
-          <div className="absolute z-10 -left-34 sm:left-0 sm:right-0 w-screen sm:w-80 md:w-96 lg:w-md bg-white border rounded shadow max-h-[80dvh] sm:max-h-60 md:max-h-80 lg:max-h-186 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {filteredExercises.map((ex) => (
-              <div
-                key={ex.exerciseId}
-                className="flex items-center gap-3 border-gray-200 border sm:gap-4 px-3 sm:px-4 py-2 sm:py-3 hover:bg-blue-50 cursor-pointer"
-                onClick={() => handleSelectExercise(ex)}
-              >
-                <img
-                  src={ex.gifUrl}
-                  alt={ex.nome}
-                  className="w-28 h-28 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-40 lg:h-40 rounded object-cover shrink-0"
-                />
-                <span className="text-sm sm:text-base md:text-lg truncate whitespace-normal wrap-break-word">
-                  {ex.nome}
-                </span>
+        {isMuscleSelected ? (
+          // Dropdown para selecionar exercício
+          <>
+            <input
+              type="text"
+              placeholder="Selecione o exercício"
+              className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm cursor-pointer"
+              value={values.nomeExercicio}
+              readOnly
+              onClick={() => setExerciseOpen((prev) => !prev)}
+              required
+            />
+            {exerciseOpen && filteredExercises.length > 0 && (
+              <div className="absolute z-10 -left-34 sm:left-0 sm:right-0 w-screen sm:w-80 md:w-96 lg:w-md bg-white border rounded shadow max-h-[80dvh] sm:max-h-60 md:max-h-80 lg:max-h-186 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                {filteredExercises.map((ex) => (
+                  <div
+                    key={ex.exerciseId}
+                    className="flex items-center gap-3 border-gray-200 border sm:gap-4 px-3 sm:px-4 py-2 sm:py-3 hover:bg-blue-50 cursor-pointer"
+                    onClick={() => handleSelectExercise(ex)}
+                  >
+                    <img
+                      src={ex.gifUrl}
+                      alt={ex.nome}
+                      className="w-28 h-28 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-40 lg:h-40 rounded object-cover shrink-0"
+                    />
+                    <span className="text-sm sm:text-base md:text-lg truncate whitespace-normal wrap-break-word">
+                      {ex.nome}
+                    </span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            )}
+          </>
+        ) : (
+          // Campo de texto livre para digitar
+          <input
+            type="text"
+            placeholder="Digite o nome do exercício"
+            className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm"
+            value={values.nomeExercicio}
+            onChange={(e) => onChange("nomeExercicio", e.target.value)}
+            required
+          />
         )}
       </div>
 
