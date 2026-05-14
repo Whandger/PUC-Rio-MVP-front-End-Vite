@@ -23,7 +23,7 @@ export default function ExerciseRow({
   initialExerciseId,
 }: Props) {
   const [selectedMuscle, setSelectedMuscle] = useState<string>("Músculo");
-
+  const baseUrl = import.meta.env.BASE_URL;
   const muscles = [
     ...new Set(exerciciosData.flatMap((e) => e.musculoAlvo)),
   ].sort();
@@ -130,7 +130,7 @@ export default function ExerciseRow({
         {showDelete && onDelete && (
           <div className="cursor-pointer" onClick={onDelete}>
             <img
-              src="/trash_icon.svg"
+              src={`${baseUrl}trash_icon.svg`}
               alt="Excluir exercício"
               className="h-7 w-7 opacity-70 hover:opacity-100"
             />
