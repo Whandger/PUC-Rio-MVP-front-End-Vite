@@ -1,7 +1,8 @@
 import type { ExerciseFormData } from "../../types";
 import ExerciseRow from "./ExerciseRow";
 import { useAddTrainingForm } from "../../hooks/useAddTrainingForm";
-import { useExerciciosData } from '../../hooks/useExerciciosData';
+import { useExerciciosData } from "../../hooks/useExerciciosData";
+import AddEXButton from "../shared/AddEXButton";
 
 interface Props {
   visible: boolean;
@@ -62,13 +63,7 @@ export default function AddTrainingForm({
             />
           ))}
 
-          <button
-            type="button"
-            onClick={addRow}
-            className="text-[#3588d4] font-bold self-start"
-          >
-            + Adicionar exercício
-          </button>
+          <AddEXButton onClick={addRow} />
 
           <div className="flex justify-center gap-8">
             <img

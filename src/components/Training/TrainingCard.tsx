@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Training, ExerciseFormData, ExercicioJSON } from "../../types";
 import ExerciseRow from "./ExerciseRow";
 import { useExerciciosData } from "../../hooks/useExerciciosData";
+import AddEXButton from "../shared/AddEXButton";
 
 interface Props {
   training: Training;
@@ -168,13 +169,7 @@ export default function TrainingCard({
                   initialExerciseId={ex.jsonId}
                 />
               ))}
-              <button
-                type="button"
-                onClick={addEmptyExercise}
-                className="text-[#3588d4] font-bold self-start text-sm"
-              >
-                + Adicionar exercício
-              </button>
+              <AddEXButton onClick={addEmptyExercise} />
             </div>
           ) : (
             // MODO VISUALIZAÇÃO
@@ -195,7 +190,7 @@ export default function TrainingCard({
                     {ex.repeticoes || "0"}
                   </span>
                   <span className="w-12 text-center">{ex.peso || "-"}</span>
-                  <span className="w-6"></span>   {/* espaço da lixeira */}
+                  <span className="w-6"></span> {/* espaço da lixeira */}
                 </div>
               ))}
             </div>
@@ -205,7 +200,9 @@ export default function TrainingCard({
           <div className="flex gap-2 px-4 py-2 items-center justify-end border-t border-gray-200">
             <div className="justify-self-center flex items-center gap-2">
               {!isEditing ? (
-                <p onClick={() => startEditing()}>🖊</p>
+                <span className="cursor-pointer" onClick={() => startEditing()}>
+                  🖊
+                </span>
               ) : (
                 <>
                   <img
@@ -214,7 +211,9 @@ export default function TrainingCard({
                     className="h-6 w-6 opacity-60 cursor-pointer hover:opacity-100"
                     onClick={() => onDelete(training.id)}
                   />
-                  <p onClick={saveEditing}>✔️</p>
+                  <span className="cursor-pointer" onClick={saveEditing}>
+                    ✔️
+                  </span>
                 </>
               )}
             </div>
