@@ -18,7 +18,7 @@ export interface ExerciseFormData {
   jsonId?: string; // ID do exercício no JSON
 }
 
-interface ExercicioJSON {
+export interface ExercicioJSON {
   nome: string;
   exerciseId: string;
   musculoAlvo: string[];

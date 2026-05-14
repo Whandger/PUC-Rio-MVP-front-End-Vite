@@ -1,10 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import type { ExerciseFormData } from "../../types";
-import type { ExercicioJSON } from "../../hooks/useExerciciosData";
+import type { ExerciseFormData, ExercicioJSON } from "../../types";
 
 interface Props {
   values: ExerciseFormData;
-  exerciciosData: ExercicioJSON[]; // NOVA prop
+  exerciciosData: ExercicioJSON[];
   onChange: (field: keyof ExerciseFormData, value: string) => void;
 }
 
