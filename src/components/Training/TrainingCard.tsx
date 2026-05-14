@@ -192,14 +192,14 @@ export default function TrainingCard({
                   className="flex items-center gap-2 px-4 py-2 border-b border-gray-200"
                 >
                   <span
-                    className={`flex-1 truncate ${ex.jsonId ? "text-blue-600 cursor-pointer hover:underline" : ""}`}
+                    className={`flex-1 truncate align-text-left text-wrap ${ex.jsonId ? "text-blue-600 cursor-pointer hover:underline" : ""}`}
                     onClick={() => ex.jsonId && openExerciseModal(ex.jsonId)}
                   >
-                    {ex.nomeExercicio || "Sem nome"}
+                    {ex.nomeExercicio || "-"}
                   </span>
-                  <span className="w-12 text-center">{ex.serie || "0"}</span>
+                  <span className="w-12 text-center">{ex.serie || "-"}</span>
                   <span className="w-12 text-center">
-                    {ex.repeticoes || "0"}
+                    {ex.repeticoes || "-"}
                   </span>
                   <span className="w-12 text-center">
                     {ex.peso ? `${ex.peso} kg` : "-"}
