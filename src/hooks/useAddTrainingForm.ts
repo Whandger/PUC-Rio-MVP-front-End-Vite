@@ -18,6 +18,7 @@ export function useAddTrainingForm({ onAdd }: Params) {
       nomeExercicio: '',
       serie: '',
       repeticoes: '',
+      peso: '',
     },
   ]);
 
@@ -28,6 +29,7 @@ export function useAddTrainingForm({ onAdd }: Params) {
         nomeExercicio: '',
         serie: '',
         repeticoes: '',
+        peso: '',
       },
     ]);
   }
@@ -54,6 +56,7 @@ export function useAddTrainingForm({ onAdd }: Params) {
         nomeExercicio: '',
         serie: '',
         repeticoes: '',
+        peso: '',
       },
     ]);
   }

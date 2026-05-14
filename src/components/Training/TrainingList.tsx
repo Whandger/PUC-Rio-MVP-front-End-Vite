@@ -4,10 +4,10 @@ import TrainingCard from './TrainingCard';
 interface Props {
   trainings: Training[];
   onDelete: (id: number) => void;
-  onUpdateExercise: (exerciseId: number, data: ExerciseFormData) => void;
+  onUpdateTraining: (id: number, data: { nome: string; exercicios: ExerciseFormData[] }) => void;
 }
 
-export default function TrainingList({ trainings, onDelete, onUpdateExercise }: Props) {
+export default function TrainingList({ trainings, onDelete, onUpdateTraining }: Props) {
   if (trainings.length === 0) {
     return (
       <div className="w-[92%] bg-white rounded-lg shadow p-4 text-center text-gray-500">
@@ -23,7 +23,7 @@ export default function TrainingList({ trainings, onDelete, onUpdateExercise }: 
           key={training.id}
           training={training}
           onDelete={onDelete}
-          onUpdateExercise={onUpdateExercise}
+          onUpdateTraining={onUpdateTraining}
         />
       ))}
     </>

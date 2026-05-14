@@ -1,5 +1,3 @@
-import SpacingLine from "../shared/SpacingLine";
-
 export default function ContaHeader() {
   const baseUrl = import.meta.env.BASE_URL;
   return (
@@ -20,7 +18,6 @@ export default function ContaHeader() {
           </div>
         </div>
       </div>
-      <SpacingLine />
     </>
   );
 }

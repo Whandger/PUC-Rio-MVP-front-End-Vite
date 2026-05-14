@@ -1,16 +1,13 @@
 import { useState } from "react";
-
 import AddTrainingForm from "../components/Training/AddTrainingForm";
 import TrainingList from "../components/Training/TrainingList";
-
 import { useTrainings } from "../hooks/useTrainings";
 
 export default function TreinoPage() {
   const [showForm, setShowForm] = useState(false);
-  // forçar a recriação do formulário
   const [formKey, setFormKey] = useState(0);
 
-  const { trainings, addTraining, deleteTraining, updateExercise } = useTrainings();
+  const { trainings, addTraining, deleteTraining, updateTraining } = useTrainings();
 
   async function handleAddTraining(data: any) {
     const success = await addTraining(data);
@@ -37,7 +34,7 @@ export default function TreinoPage() {
       <TrainingList
         trainings={trainings}
         onDelete={deleteTraining}
-        onUpdateExercise={updateExercise}
+        onUpdateTraining={updateTraining}
       />
     </div>
   );
