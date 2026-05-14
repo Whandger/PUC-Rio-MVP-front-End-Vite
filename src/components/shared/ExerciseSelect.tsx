@@ -60,7 +60,7 @@ export default function ExerciseSelect({ exercises, selectedName, onSelect }: Ex
 
     return {
       position: "fixed",
-      top: rect.bottom + 4,
+      top: rect.bottom,
       left: `${left}px`,
       width: `${width}px`,
       maxHeight: "60vh",
@@ -99,7 +99,7 @@ export default function ExerciseSelect({ exercises, selectedName, onSelect }: Ex
                 <img
                   src={ex.gifUrl}
                   alt={ex.nome}
-                  className="w-16 h-16 md:w-20 md:h-20 rounded object-cover shrink-0"
+                  className="w-28 h-28 md:w-40 md:h-40 rounded object-cover shrink-0"
                 />
                 <span className="text-sm md:text-base whitespace-normal wrap-break-word">
                   {ex.nome}

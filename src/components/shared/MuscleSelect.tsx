@@ -38,9 +38,9 @@ export default function MuscleSelect({
     const rect = buttonRef.current.getBoundingClientRect();
     return {
       position: "fixed",
-      top: rect.bottom + 4,
+      top: rect.bottom,
       left: rect.left,
-      width: rect.width,
+      width: rect.width * 2,
       maxHeight: "40vh",
       zIndex: 9999,
     };
@@ -69,7 +69,7 @@ export default function MuscleSelect({
             {allOptions.map((option) => (
               <div
                 key={option}
-                className={`px-2 py-1.5 hover:bg-blue-50 cursor-pointer text-sm ${
+                className={`px-3 py-2 border-b border-gray-200 hover:bg-blue-50 cursor-pointer text-sm md:text-base whitespace-normal wrap-break-word${
                   option === "Músculo" ? "italic text-gray-500" : ""
                 }`}
                 onClick={() => {
