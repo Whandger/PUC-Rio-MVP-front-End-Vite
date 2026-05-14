@@ -20,5 +20,5 @@ export interface ExercicioJSON {
   exerciseId: string;
   musculoAlvo: string[];
   gifUrl: string;
-  instrucoes?: string;
+  instrucoes?: string | string[];
 }

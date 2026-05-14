@@ -3,6 +3,7 @@ import type { Training, ExerciseFormData, ExercicioJSON } from "../../types";
 import ExerciseRow from "./ExerciseRow";
 import { useExerciciosData } from "../../hooks/useExerciciosData";
 import AddEXButton from "../shared/AddEXButton";
+import ModalExercicioJson from "../shared/ExercicioJsonModal";
 
 interface Props {
   training: Training;
@@ -233,32 +234,10 @@ export default function TrainingCard({
       )}
 
       {/* Modal de detalhes do exercício */}
-      {modalExercise && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
-            <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl"
-              onClick={() => setModalExercise(null)}
-            >
-              &times;
-            </button>
-            <h3 className="text-xl font-bold mb-4 text-center">
-              {modalExercise.nome}
-            </h3>
-            <img
-              src={modalExercise.gifUrl}
-              alt={modalExercise.nome}
-              className="w-full h-auto rounded mb-4"
-            />
-            <div>
-              <h4 className="font-semibold mb-2">Como realizar:</h4>
-              <p className="text-gray-700">
-                {modalExercise.instrucoes || "Instruções em breve."}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+      <ModalExercicioJson
+        exercise={modalExercise}
+        onClose={() => setModalExercise(null)}
+      />
     </div>
   );
 }
