@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { ExerciseFormData } from '../types';
+import { generateExerciseId } from '../utils/generateId';
 
 interface AddTrainingData {
   nome: string;
@@ -15,6 +16,7 @@ export function useAddTrainingForm({ onAdd }: Params) {
 
   const [exercicios, setExercicios] = useState<ExerciseFormData[]>([
     {
+      id: generateExerciseId(),
       nomeExercicio: '',
       serie: '',
       repeticoes: '',
@@ -26,6 +28,7 @@ export function useAddTrainingForm({ onAdd }: Params) {
     setExercicios([
       ...exercicios,
       {
+        id: generateExerciseId(),
         nomeExercicio: '',
         serie: '',
         repeticoes: '',
@@ -53,6 +56,7 @@ export function useAddTrainingForm({ onAdd }: Params) {
     setNomeTreino('');
     setExercicios([
       {
+        id: generateExerciseId(),
         nomeExercicio: '',
         serie: '',
         repeticoes: '',

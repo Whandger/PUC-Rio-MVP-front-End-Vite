@@ -4,6 +4,7 @@ import ExerciseRow from "./ExerciseRow";
 import { useExerciciosData } from "../../hooks/useExerciciosData";
 import AddEXButton from "../shared/AddEXButton";
 import ModalExercicioJson from "../shared/ExercicioJsonModal";
+import { generateExerciseId } from "../../utils/generateId";
 
 interface Props {
   training: Training;
@@ -44,9 +45,15 @@ export default function TrainingCard({
 
   // Salvar edição
   const saveEditing = () => {
+    // Garante que todos os exercícios tenham ID antes de salvar
+    const exerciciosComId = editableTraining.exercicios.map((ex) => ({
+      ...ex,
+      id: ex.id || generateExerciseId(),
+    }));
+    
     onUpdateTraining(training.id, {
       nome: editableTraining.nome,
-      exercicios: editableTraining.exercicios,
+      exercicios: exerciciosComId,
     });
     setIsEditing(false);
   };
@@ -97,7 +104,13 @@ export default function TrainingCard({
       ...prev,
       exercicios: [
         ...prev.exercicios,
-        { nomeExercicio: "", serie: "", repeticoes: "", peso: "" },
+        { 
+          id: generateExerciseId(),
+          nomeExercicio: "", 
+          serie: "", 
+          repeticoes: "", 
+          peso: "" 
+        },
       ],
     }));
   };
@@ -169,7 +182,7 @@ export default function TrainingCard({
             <div className="flex flex-col gap-2 px-4 py-2">
               {editableTraining.exercicios.map((ex, idx) => (
                 <ExerciseRow
-                  key={idx}
+                  key={ex.id || idx}
                   values={ex}
                   exerciciosData={exerciciosData}
                   onChange={(field, value) =>
