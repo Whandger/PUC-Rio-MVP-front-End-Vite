@@ -60,7 +60,7 @@ export default function ExerciseRow({
   const isMuscleSelected = selectedMuscle !== "Músculo";
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1.5">
       {/* Músculo */}
       <div className="w-20 sm:w-24 shrink-0">
         <MuscleSelect
@@ -71,7 +71,7 @@ export default function ExerciseRow({
       </div>
 
       {/* Exercício */}
-      <div className="flex-1 min-w-0">
+      <div className="w-full min-w-10">
         {isMuscleSelected ? (
           <ExerciseSelect
             exercises={filteredExercises}
@@ -126,13 +126,13 @@ export default function ExerciseRow({
       </div>
 
       {/* Lixeira */}
-      <div className="w-6 shrink-0 flex justify-center">
+      <div className="w-5.5 shrink-0 flex">
         {showDelete && onDelete && (
           <div className="cursor-pointer" onClick={onDelete}>
             <img
               src={`${baseUrl}trash_icon.svg`}
               alt="Excluir exercício"
-              className="h-7 w-7 opacity-70 hover:opacity-100"
+              className="h-6 w-6 opacity-70 hover:opacity-100"
             />
           </div>
         )}

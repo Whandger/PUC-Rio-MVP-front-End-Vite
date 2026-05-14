@@ -65,11 +65,11 @@ export default function AddTrainingForm({
 
           <AddEXButton onClick={addRow} />
 
-          <div className="flex justify-center gap-8">
+          <div className="flex justify-end gap-4">
             <img
               src={`${baseUrl}trash_icon.svg`}
               alt="Cancelar"
-              className="w-6 opacity-60 cursor-pointer"
+              className="w-6.5 opacity-60 cursor-pointer"
               onClick={onCancel}
             />
 
