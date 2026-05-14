@@ -6,7 +6,7 @@ import Footer from './Footer';
 export default function Layout() {
   return (
     <div className="flex flex-col h-dvh overflow-hidden font-sans">
-      {/* Header - visível em todos os tamanhos, sempre no topo */}
+      {/* Header sempre no topo */}
       <Header />
       
       {/* Container principal */}

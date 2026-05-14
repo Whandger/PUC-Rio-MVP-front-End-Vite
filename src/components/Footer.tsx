@@ -20,8 +20,11 @@ export default function Footer() {
           key={item.to}
           to={item.to}
           className={({ isActive }) =>
-            `flex-1 lg:flex-none lg:h-20 flex flex-col items-center justify-center transition-colors ${
-              isActive ? 'bg-[#41a1eb]' : ''
+            `flex-1 lg:flex-none lg:h-20 flex flex-col items-center justify-center
+            transition-all duration-200 ease-in-out outline-none
+            ${isActive 
+              ? 'bg-[#2d7abf] shadow-[inset_0_0_10px_rgba(0,0,0,0.4)] scale-[0.97]' 
+              : 'hover:bg-[#3a8fd9] active:scale-[0.97] active:shadow-[inset_0_0_10px_rgba(0,0,0,0.4)]'
             }`
           }
         >
@@ -30,8 +33,10 @@ export default function Footer() {
               <img
                 src={item.icon}
                 alt={item.label}
-                className={`w-6 h-6 transition-transform ${
-                  currentPath === item.to ? 'scale-110' : 'opacity-70'
+                className={`w-6 h-6 transition-all duration-200 ${
+                  currentPath === item.to 
+                    ? 'scale-90 brightness-110' 
+                    : 'opacity-70 hover:opacity-90'
                 }`}
               />
             ) : (
@@ -39,7 +44,9 @@ export default function Footer() {
             )}
           </span>
 
-          <span className="text-white text-[10px] mt-0.5">
+          <span className={`text-white text-[10px] mt-0.5 transition-all duration-200 ${
+            currentPath === item.to ? 'opacity-90' : 'opacity-70'
+          }`}>
             {item.label}
           </span>
         </NavLink>
