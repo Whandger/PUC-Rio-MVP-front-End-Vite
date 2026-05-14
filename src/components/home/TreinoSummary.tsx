@@ -20,9 +20,9 @@ export default function TreinoSummary() {
       </div>
 
       <div className="flex flex-col gap-1">
-        {training.exercicios.map((ex: any, index: number) => (
+        {training.exercicios.map((ex, index) => (
           <p key={index} className="text-gray-600">
-            {ex.nome_exercicio} {ex.series}x{ex.repeticoes}
+            {ex.nomeExercicio} {ex.serie}x{ex.repeticoes}
           </p>
         ))}
       </div>

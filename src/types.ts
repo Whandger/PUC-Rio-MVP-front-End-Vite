@@ -1,21 +1,17 @@
-export interface Exercise {
-  id: number;
-  nome_exercicio: string;
-  series: number;
-  repeticoes: number;
-}
-
-export interface Training {
-  id: number;
-  nome: string;
-  exercicios: Exercise[];
-}
-
 export interface ExerciseFormData {
+  id?: number; 
   nomeExercicio: string;
   serie: string;
   repeticoes: string;
   jsonId?: string; // ID do exercício no JSON
+}
+
+export type Exercise = ExerciseFormData;
+
+export interface Training {
+  id: number;
+  nome: string;
+  exercicios: ExerciseFormData[];
 }
 
 export interface ExercicioJSON {

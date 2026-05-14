@@ -1,9 +1,15 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 
-
 export default function Layout() {
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login';
+
+  if (isLoginPage) {
+    return <Outlet />;
+  }
+
   return (
     <div className="flex flex-col h-dvh overflow-hidden font-sans">
       {/* Header sempre no topo */}

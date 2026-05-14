@@ -1,25 +1,11 @@
-import { useEffect, useState } from 'react';
-
+import { useTrainingContext } from '../context/TrainingContext';
 import type { Training } from '../types';
 
-import { getFirstTraining } from '../services/trainingSummaryService';
-
 export function useTreinoSummary() {
-  const [training, setTraining] = useState<Training | null>(null);
-
-  useEffect(() => {
-    async function loadTraining() {
-      try {
-        const treino = await getFirstTraining();
-
-        setTraining(treino);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    loadTraining();
-  }, []);
+  const { trainings } = useTrainingContext();
+  
+  // Pega o primeiro treino da lista
+  const training: Training | null = trainings.length > 0 ? trainings[0] : null;
 
   return {
     training,

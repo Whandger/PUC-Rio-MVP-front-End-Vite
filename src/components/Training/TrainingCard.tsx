@@ -17,12 +17,12 @@ export default function TrainingCard({ training, onDelete, onUpdateExercise }: P
     repeticoes: '',
   });
 
-  const startEditing = (exerciseId: number, nome: string, series: number, reps: number) => {
+  const startEditing = (exerciseId: number, nome: string, series: string, reps: string) => {
     setEditingId(exerciseId);
     setEditValues({
-      nomeExercicio: nome,
-      serie: String(series),
-      repeticoes: String(reps),
+      nomeExercicio: nome || '',
+      serie: series || '',
+      repeticoes: reps || '',
     });
   };
 
@@ -69,31 +69,36 @@ export default function TrainingCard({ training, onDelete, onUpdateExercise }: P
                     onChange={(e) => setEditValues({ ...editValues, nomeExercicio: e.target.value })}
                   />
                   <input
-                    type="number"
+                    type="text"
                     className="w-12 border border-gray-300 rounded text-center text-blue-600 justify-self-center"
                     value={editValues.serie}
                     onChange={(e) => setEditValues({ ...editValues, serie: e.target.value })}
                   />
                   <input
-                    type="number"
+                    type="text"
                     className="w-12 border border-gray-300 rounded text-center text-blue-600 justify-self-center"
                     value={editValues.repeticoes}
                     onChange={(e) => setEditValues({ ...editValues, repeticoes: e.target.value })}
                   />
                   <div className="justify-self-center cursor-pointer" onClick={saveEditing}>
-                    <img src={`${baseUrl}disk_icon.svg`} className='h-6 w-6 opacity-60' />
+                    <img src={`${baseUrl}disk_icon.svg`} className='h-6 w-6 opacity-60' alt="Salvar" />
                   </div>
                 </>
               ) : (
                 <>
-                  <span className="">{ex.nome_exercicio}</span>
-                  <span className="justify-self-center">{ex.series}</span>
-                  <span className="justify-self-center">{ex.repeticoes}</span>
+                  <span>{ex.nomeExercicio || 'Sem nome'}</span>
+                  <span className="justify-self-center">{ex.serie || '0'}</span>
+                  <span className="justify-self-center">{ex.repeticoes || '0'}</span>
                   <div
                     className="justify-self-center cursor-pointer opacity-50 hover:opacity-100"
                     onClick={(e) => {
                       e.stopPropagation();
-                      startEditing(ex.id, ex.nome_exercicio, ex.series, ex.repeticoes);
+                      startEditing(
+                        ex.id!,
+                        ex.nomeExercicio || '',
+                        ex.serie || '',
+                        ex.repeticoes || ''
+                      );
                     }}
                   >
                     ✏️
@@ -112,7 +117,7 @@ export default function TrainingCard({ training, onDelete, onUpdateExercise }: P
               className="justify-self-center cursor-pointer"
               onClick={() => onDelete(training.id)}
             >
-              <img src={`${baseUrl}trash_icon.svg`} className='h-6 w-6 opacity-60' />
+              <img src={`${baseUrl}trash_icon.svg`} className='h-6 w-6 opacity-60' alt="Excluir" />
             </div>
           </div>
         </div>
