@@ -14,13 +14,13 @@ export default function Footer() {
   const currentPath = location.pathname;
 
   return (
-    <footer className="bg-[#3588d4] w-full h-[8dvh] flex z-50">
+    <footer className="bg-[#3588d4] w-full h-[8dvh] lg:w-20 lg:h-full flex lg:flex-col z-50">
       {navItems.map((item) => (
         <NavLink
           key={item.to}
           to={item.to}
           className={({ isActive }) =>
-            `w-1/4 h-full flex flex-col items-center justify-center transition-colors ${
+            `flex-1 lg:flex-none lg:h-20 flex flex-col items-center justify-center transition-colors ${
               isActive ? 'bg-[#41a1eb]' : ''
             }`
           }

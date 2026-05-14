@@ -17,3 +17,10 @@ export interface ExerciseFormData {
   repeticoes: string;
   jsonId?: string; // ID do exercício no JSON
 }
+
+interface ExercicioJSON {
+  nome: string;
+  exerciseId: string;
+  musculoAlvo: string[];
+  gifUrl: string;
+}
