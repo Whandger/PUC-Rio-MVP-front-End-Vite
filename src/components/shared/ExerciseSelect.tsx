@@ -35,7 +35,6 @@ export default function ExerciseSelect({ exercises, selectedName, onSelect }: Ex
     const padding = 16;
 
     if (isMobile) {
-      // Grudado no canto esquerdo, largura total com margem
       const width = window.innerWidth - padding * 2;
       return {
         position: "fixed",
@@ -47,11 +46,15 @@ export default function ExerciseSelect({ exercises, selectedName, onSelect }: Ex
       };
     }
 
-    // Desktop: alinhado ao input, mesma largura
+    // Desktop
+    const minDesktopWidth = 320;
+    let width = rect.width;
+    if (width < minDesktopWidth) width = minDesktopWidth;
+
     let left = rect.left;
-    // Ajuste mínimo para não sair da tela
-    if (left + rect.width > window.innerWidth - padding) {
-      left = window.innerWidth - rect.width - padding;
+    // Ajuste para não sair da tela
+    if (left + width > window.innerWidth - padding) {
+      left = window.innerWidth - width - padding;
     }
     if (left < padding) left = padding;
 
@@ -59,7 +62,7 @@ export default function ExerciseSelect({ exercises, selectedName, onSelect }: Ex
       position: "fixed",
       top: rect.bottom + 4,
       left: `${left}px`,
-      width: `${rect.width}px`,
+      width: `${width}px`,
       maxHeight: "60vh",
       zIndex: 9999,
     };

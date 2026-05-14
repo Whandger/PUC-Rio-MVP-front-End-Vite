@@ -7,7 +7,11 @@ interface MuscleSelectProps {
   onSelect: (muscle: string) => void;
 }
 
-export default function MuscleSelect({ muscles, selected, onSelect }: MuscleSelectProps) {
+export default function MuscleSelect({
+  muscles,
+  selected,
+  onSelect,
+}: MuscleSelectProps) {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const portalRef = useRef<HTMLDivElement>(null);
@@ -77,7 +81,7 @@ export default function MuscleSelect({ muscles, selected, onSelect }: MuscleSele
               </div>
             ))}
           </div>,
-          document.body
+          document.body,
         )}
     </div>
   );

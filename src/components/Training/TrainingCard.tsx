@@ -143,13 +143,24 @@ export default function TrainingCard({
       {expanded && (
         <div className="border-t-2 border-[#3498db]">
           {/* Cabeçalho da tabela */}
-          <div className="flex items-center gap-2 px-4 py-2 bg-[#34495e] text-white font-bold text-sm">
-            <span className="flex-1">Exercício</span>
-            <span className="w-12 text-center">Séries</span>
-            <span className="w-12 text-center">Reps</span>
-            <span className="w-12 text-center">Peso</span>
-            <span className="w-6"></span> {/* espaço da lixeira */}
-          </div>
+          {isEditing ? (
+            <div className="flex items-center gap-2 px-4 py-2 bg-[#34495e] text-white font-bold text-sm">
+              <span className="w-20 sm:w-24 text-center">Músculo</span>
+              <span className="flex-1">Exercício</span>
+              <span className="w-12 text-center">Séries</span>
+              <span className="w-12 text-center">Reps</span>
+              <span className="w-12 text-center">Peso</span>
+              <span className="w-6"></span> {/* espaço da lixeira */}
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 px-4 py-2 bg-[#34495e] text-white font-bold text-sm">
+              <span className="flex-1">Exercício</span>
+              <span className="w-12 text-center">Séries</span>
+              <span className="w-12 text-center">Reps</span>
+              <span className="w-12 text-center">Peso</span>
+              <span className="w-6"></span>
+            </div>
+          )}
 
           {/* Lista de exercícios */}
           {isEditing ? (

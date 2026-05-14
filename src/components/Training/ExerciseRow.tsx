@@ -61,33 +61,33 @@ export default function ExerciseRow({
 
   return (
     <div className="flex items-center gap-2">
-      {/* Bloco Músculo + Exercício */}
-      <div className="flex gap-2 flex-1 min-w-0">
-        <div className="w-24 shrink-0">
-          <MuscleSelect
-            muscles={muscles}
-            selected={selectedMuscle}
-            onSelect={handleMuscleSelect}
+      {/* Músculo */}
+      <div className="w-20 sm:w-24 shrink-0">
+        <MuscleSelect
+          muscles={muscles}
+          selected={selectedMuscle}
+          onSelect={handleMuscleSelect}
+        />
+      </div>
+
+      {/* Exercício */}
+      <div className="flex-1 min-w-0">
+        {isMuscleSelected ? (
+          <ExerciseSelect
+            exercises={filteredExercises}
+            selectedName={values.nomeExercicio}
+            onSelect={handleExerciseSelect}
           />
-        </div>
-        <div className="flex-1 min-w-0">
-          {isMuscleSelected ? (
-            <ExerciseSelect
-              exercises={filteredExercises}
-              selectedName={values.nomeExercicio}
-              onSelect={handleExerciseSelect}
-            />
-          ) : (
-            <input
-              type="text"
-              placeholder="Digite o nome do exercício"
-              className="w-full border border-gray-300 items-center rounded px-2 py-1.5 text-sm"
-              value={values.nomeExercicio}
-              onChange={(e) => onChange("nomeExercicio", e.target.value)}
-              required
-            />
-          )}
-        </div>
+        ) : (
+          <input
+            type="text"
+            placeholder="Digite o nome do exercício"
+            className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm"
+            value={values.nomeExercicio}
+            onChange={(e) => onChange("nomeExercicio", e.target.value)}
+            required
+          />
+        )}
       </div>
 
       {/* Séries */}
@@ -125,7 +125,7 @@ export default function ExerciseRow({
         />
       </div>
 
-      {/* Lixeira (só ocupa espaço quando visível) */}
+      {/* Lixeira */}
       <div className="w-6 shrink-0 flex justify-center">
         {showDelete && onDelete && (
           <div className="cursor-pointer" onClick={onDelete}>
