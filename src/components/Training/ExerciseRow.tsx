@@ -95,10 +95,14 @@ export default function ExerciseRow({
         <input
           type="text"
           inputMode="numeric"
+          pattern="[0-9]*"
           placeholder="Sér."
           className="w-full border border-gray-300 rounded px-1 py-1.5 text-sm text-center"
           value={values.serie}
-          onChange={(e) => onChange("serie", e.target.value)}
+          onChange={(e) => {
+            const onlyNumbers = e.target.value.replace(/\D/g, "");
+            onChange("serie", onlyNumbers);
+          }}
           required
         />
       </div>
@@ -108,10 +112,14 @@ export default function ExerciseRow({
         <input
           type="text"
           inputMode="numeric"
+          pattern="[0-9]*"
           placeholder="Rep."
           className="w-full border border-gray-300 rounded px-1 py-1.5 text-sm text-center"
           value={values.repeticoes}
-          onChange={(e) => onChange("repeticoes", e.target.value)}
+          onChange={(e) => {
+            const onlyNumbers = e.target.value.replace(/\D/g, "");
+            onChange("repeticoes", onlyNumbers);
+          }}
           required
         />
       </div>
@@ -120,11 +128,18 @@ export default function ExerciseRow({
       <div className="w-12 shrink-0">
         <input
           type="text"
-          inputMode="numeric"
+          inputMode="decimal"
+          pattern="[0-9]*\.?[0-9]*"
           placeholder="Kg"
           className="w-full border border-gray-300 rounded px-1 py-1.5 text-sm text-center"
           value={values.peso || ""}
-          onChange={(e) => onChange("peso", e.target.value)}
+          onChange={(e) => {
+            let val = e.target.value.replace(/[^0-9.]/g, "");
+            const parts = val.split(".");
+            if (parts.length > 2)
+              val = parts[0] + "." + parts.slice(1).join("");
+            onChange("peso", val);
+          }}
         />
       </div>
 
