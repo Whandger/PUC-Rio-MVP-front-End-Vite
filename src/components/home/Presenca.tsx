@@ -47,7 +47,7 @@ export default function Presenca({ training }: PresencaProps) {
 
       <button
         onClick={marcarPresenca}
-        className="bg-[#3588d4] text-white px-4 py-1 rounded mt-3 hover:bg-blue-600 transition"
+        className="bg-[#3588d4] text-white px-4 py-1 rounded mt-3 cursor-pointer hover:bg-blue-600 transition"
       >
         Marcar presença
       </button>

@@ -78,7 +78,7 @@ export default function TreinoSummary({
 
         <button
           onClick={() => setShowDropdown(!showDropdown)}
-          className="text-[#3588d4] font-bold text-sm hover:underline"
+          className="text-[#3588d4] font-bold text-sm cursor-pointer hover:underline"
         >
           Escolher treino
         </button>

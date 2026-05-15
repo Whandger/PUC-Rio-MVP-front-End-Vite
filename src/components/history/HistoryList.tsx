@@ -14,6 +14,13 @@ export default function HistoryList() {
     );
   }
 
+  // Ordenar do mais recente para o mais antigo
+  const sortedHistory = [...history].sort((a, b) => {
+    const dateA = new Date(`${a.data.split('/').reverse().join('-')}T${a.hora}:00`);
+    const dateB = new Date(`${b.data.split('/').reverse().join('-')}T${b.hora}:00`);
+    return dateB.getTime() - dateA.getTime();
+  });
+
   const handleEditExercise = (exerciseId: number, field: keyof ExerciseFormData, value: string) => {
     const record = history.find(r => r.exercicios.some(ex => ex.id === exerciseId));
     if (record) {
@@ -35,30 +42,30 @@ export default function HistoryList() {
     deleteTrainingRecord(id);
   };
 
-return (
-  <section className="h-full flex flex-col items-center py-4">
-    <h2 className="text-lg font-bold text-gray-700 mb-3">Histórico de Treinos</h2>
-    
-    <div className="w-full flex-1 overflow-y-auto px-2">
-      <div className="flex flex-col items-center gap-3">
-        {history.map((record) => (
-          <TrainingCard
-            key={record.id}
-            training={{
-              id: record.id,
-              nome: record.nome,
-              exercicios: record.exercicios,
-            }}
-            duracao={record.duracao}
-            dataTreino={record.data}
-            isHistoryMode={true}
-            onUpdateHistory={handleUpdateHistory}
-            onEditExercise={handleEditExercise}
-            onDelete={handleDelete}
-          />
-        ))}
+  return (
+    <section className="h-full flex flex-col items-center py-4">
+      <h2 className="text-lg font-bold text-gray-700 mb-3">Histórico de Treinos</h2>
+      
+      <div className="w-full flex-1 overflow-y-auto px-2">
+        <div className="flex flex-col items-center gap-3">
+          {sortedHistory.map((record) => (
+            <TrainingCard
+              key={record.id}
+              training={{
+                id: record.id,
+                nome: record.nome,
+                exercicios: record.exercicios,
+              }}
+              duracao={record.duracao}
+              dataTreino={record.data}
+              isHistoryMode={true}
+              onUpdateHistory={handleUpdateHistory}
+              onEditExercise={handleEditExercise}
+              onDelete={handleDelete}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 }
