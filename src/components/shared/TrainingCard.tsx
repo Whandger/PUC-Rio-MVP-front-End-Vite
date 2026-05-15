@@ -294,20 +294,6 @@ export default function TrainingCard({
                     )}
                   </span>
 
-                  {/* Ícone de edição rápida de peso */}
-                  {isHistoryMode && !isEditing && ex.id && editingPesoId !== ex.id && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        startEditingPeso(ex);
-                      }}
-                      className="w-8 text-center hover:text-[#3588d4] transition"
-                      title="Editar peso"
-                    >
-                      ✎
-                    </button>
-                  )}
-
                   {/* Espaço da lixeira no modo treino original */}
                   {!isHistoryMode && <span className="w-6"></span>}
                   {/* No histórico, se não estiver editando e sem ícone de peso, espaço vazio */}
