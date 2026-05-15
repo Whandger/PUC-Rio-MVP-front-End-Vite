@@ -22,3 +22,12 @@ export interface ExercicioJSON {
   gifUrl: string;
   instrucoes?: string | string[];
 }
+
+export interface TrainingRecord {
+  id: number;
+  nome: string;
+  data: string;
+  hora: string;
+  duracao: string;
+  exercicios: ExerciseFormData[];
+}

@@ -1,5 +1,5 @@
 import type { Training, ExerciseFormData } from '../../types';
-import TrainingCard from './TrainingCard';
+import TrainingCard from '../shared/TrainingCard';
 
 interface Props {
   trainings: Training[];

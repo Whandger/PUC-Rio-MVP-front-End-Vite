@@ -1,11 +1,20 @@
 import { useState, useRef, useEffect } from "react";
-import { useTreinoSummary } from "../../hooks/useTreinoSummary";
 import { useTrainingContext } from "../../context/TrainingContext";
-import type { ExerciseFormData } from "../../types";
+import type { Training, ExerciseFormData } from "../../types";
 
-export default function TreinoSummary() {
-  const { training, trainings, selectedIndex, selectTraining } =
-    useTreinoSummary();
+interface Props {
+  trainings: Training[];
+  training: Training | null;
+  selectedIndex: number;
+  onSelectTraining: (index: number) => void;
+}
+
+export default function TreinoSummary({
+  trainings,
+  training,
+  selectedIndex,
+  onSelectTraining,
+}: Props) {
   const { updateExercise } = useTrainingContext();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -83,7 +92,7 @@ export default function TreinoSummary() {
               <div
                 key={t.id}
                 onClick={() => {
-                  selectTraining(index);
+                  onSelectTraining(index);
                   setShowDropdown(false);
                 }}
                 className={`px-3 py-2 cursor-pointer text-[17px] hover:bg-blue-50 ${
