@@ -38,7 +38,7 @@ export default function ExerciseRow({
       setSelectedMuscle(initialMuscle);
     }
     if (initialExerciseId) {
-      const ex = exerciciosData.find(e => e.exerciseId === initialExerciseId);
+      const ex = exerciciosData.find((e) => e.exerciseId === initialExerciseId);
       if (ex) {
         onChange("nomeExercicio", ex.nome);
         onChange("jsonId", ex.exerciseId);
@@ -93,7 +93,8 @@ export default function ExerciseRow({
       {/* Séries */}
       <div className="w-12 shrink-0">
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
           placeholder="Sér."
           className="w-full border border-gray-300 rounded px-1 py-1.5 text-sm text-center"
           value={values.serie}
@@ -105,7 +106,8 @@ export default function ExerciseRow({
       {/* Repetições */}
       <div className="w-12 shrink-0">
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
           placeholder="Rep."
           className="w-full border border-gray-300 rounded px-1 py-1.5 text-sm text-center"
           value={values.repeticoes}
@@ -118,6 +120,7 @@ export default function ExerciseRow({
       <div className="w-12 shrink-0">
         <input
           type="text"
+          inputMode="numeric"
           placeholder="Kg"
           className="w-full border border-gray-300 rounded px-1 py-1.5 text-sm text-center"
           value={values.peso || ""}

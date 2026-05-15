@@ -1,25 +1,19 @@
 // src/components/home/Presenca.tsx
-import { usePresenca } from '../../hooks/usePresenca';
-import type { Training } from '../../types';
+import { usePresenca } from "../../hooks/usePresenca";
+import type { Training } from "../../types";
 
 interface PresencaProps {
   training: Training | null;
 }
 
 export default function Presenca({ training }: PresencaProps) {
-  const {
-    timeString,
-    horas,
-    setHoras,
-    minutos,
-    setMinutos,
-    marcarPresenca,
-  } = usePresenca({ training });
+  const { timeString, horas, setHoras, minutos, setMinutos, marcarPresenca } =
+    usePresenca({ training });
 
   return (
     <section className="bg-white w-[92%] rounded-lg shadow-md flex flex-col items-center justify-center py-3">
       <h3 className="text-gray-700 font-bold text-lg">
-        {timeString || 'Carregando...'}
+        {timeString || "Carregando..."}
       </h3>
 
       {/* Editor de duração */}
@@ -27,7 +21,8 @@ export default function Presenca({ training }: PresencaProps) {
         <span className="text-gray-600 text-sm">Duração do treino:</span>
         <div className="flex items-center gap-1">
           <input
-            type="number"
+            type="text"
+            inputMode="numeric"
             min="0"
             max="24"
             value={horas}
@@ -37,7 +32,8 @@ export default function Presenca({ training }: PresencaProps) {
           />
           <span className="text-gray-600 text-sm">h</span>
           <input
-            type="number"
+            type="text"
+            inputMode="numeric"
             min="0"
             max="59"
             value={minutos}
