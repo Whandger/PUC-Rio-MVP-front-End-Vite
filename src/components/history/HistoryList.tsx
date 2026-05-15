@@ -8,7 +8,7 @@ export default function HistoryList() {
 
   if (history.length === 0) {
     return (
-      <section className="bg-white w-[92%] rounded-lg shadow-md p-4">
+      <section className="bg-white w-full justify-center flex items-center h-16 mt-2 rounded-lg shadow-md p-4">
         <p className="text-gray-500">Nenhum treino realizado ainda</p>
       </section>
     );
