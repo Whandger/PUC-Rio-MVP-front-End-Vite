@@ -33,9 +33,10 @@ export default function HistoryFilter({
 }: Props) {
   return (
     <div className="w-full bg-white dark:bg-gray-800 rounded-b-lg shadow-md p-3 mb-2">
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
+      {/* Linha única, ocupando o máximo sem sair */}
+      <div className="flex items-center gap-1 text-sm text-gray-700 dark:text-gray-200">
 
-        <div className="flex items-center gap-1 w-full sm:flex-1">
+        <div className="flex items-center gap-1 flex-1 min-w-0">
           <span className="shrink-0">De</span>
           <input
             type="date"
@@ -45,7 +46,7 @@ export default function HistoryFilter({
           />
         </div>
 
-        <div className="flex items-center gap-1 w-full sm:flex-1">
+        <div className="flex items-center gap-1 flex-1 min-w-0">
           <span className="shrink-0">até</span>
           <input
             type="date"
@@ -56,7 +57,7 @@ export default function HistoryFilter({
         </div>
       </div>
 
-      {/* Linha inferior: botões Procurar e Todos */}
+      {/* Botões */}
       <div className="flex justify-start gap-2 mt-2">
         <button
           onClick={onSearch}
