@@ -32,25 +32,26 @@ export default function HistoryFilter({
   onClear,
 }: Props) {
   return (
-    <div className="w-full bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 mb-2">
-      <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
-        <span className="font-medium shrink-0">Filtro:</span>
-        <div className="flex items-center gap-1 flex-1">
+    <div className="w-full bg-white dark:bg-gray-800 rounded-b-lg shadow-md p-3 mb-2">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
+
+        <div className="flex items-center gap-1 w-full sm:flex-1">
           <span className="shrink-0">De</span>
           <input
             type="date"
             value={toInputFormat(startDate)}
             onChange={(e) => onStartDateChange(toDisplayFormat(e.target.value))}
-            className="border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm flex-1 min-w-0 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200"
+            className="border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm w-full min-w-0 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200"
           />
         </div>
-        <div className="flex items-center gap-1 flex-1">
+
+        <div className="flex items-center gap-1 w-full sm:flex-1">
           <span className="shrink-0">até</span>
           <input
             type="date"
             value={toInputFormat(endDate)}
             onChange={(e) => onEndDateChange(toDisplayFormat(e.target.value))}
-            className="border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm flex-1 min-w-0 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200"
+            className="border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm w-full min-w-0 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200"
           />
         </div>
       </div>
