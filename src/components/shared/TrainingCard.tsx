@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import type { Training, ExerciseFormData, ExercicioJSON } from "../../types";
 import ExerciseRow from "../Training/ExerciseRow";
@@ -5,13 +6,14 @@ import { useExerciciosData } from "../../hooks/useExerciciosData";
 import AddEXButton from "../shared/AddEXButton";
 import ModalExercicioJson from "../shared/ExercicioJsonModal";
 import { generateExerciseId } from "../../utils/generateId";
+import { getExpandedIds, toggleExpandedId } from "../../utils/expandedCards";
 
 interface Props {
   training: Training;
   onDelete?: (id: number) => void;
   onUpdateTraining?: (
     id: number,
-    data: { nome: string; exercicios: ExerciseFormData[] }
+    data: { nome: string; exercicios: ExerciseFormData[] },
   ) => void;
   // Histórico
   duracao?: string;
@@ -20,12 +22,12 @@ interface Props {
   // Callbacks específicos do histórico
   onUpdateHistory?: (
     id: number,
-    data: { nome: string; exercicios: ExerciseFormData[] }
+    data: { nome: string; exercicios: ExerciseFormData[] },
   ) => void;
   onEditExercise?: (
     exerciseId: number,
     field: keyof ExerciseFormData,
-    value: string
+    value: string,
   ) => void;
 }
 
@@ -41,14 +43,20 @@ export default function TrainingCard({
 }: Props) {
   const baseUrl = import.meta.env.BASE_URL;
   const exerciciosData = useExerciciosData();
+  const navigate = useNavigate();
 
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(() => {
+  const expandedIds = getExpandedIds();
+  return expandedIds.includes(training.id);
+});
   const [isEditing, setIsEditing] = useState(false);
   const [editableTraining, setEditableTraining] = useState<Training>(() => ({
     ...training,
   }));
 
-  const [modalExercise, setModalExercise] = useState<ExercicioJSON | null>(null);
+  const [modalExercise, setModalExercise] = useState<ExercicioJSON | null>(
+    null,
+  );
 
   // Edição rápida de peso
   const [editingPesoId, setEditingPesoId] = useState<number | null>(null);
@@ -82,21 +90,23 @@ export default function TrainingCard({
     setIsEditing(false);
   };
 
-  const handleToggleExpand = () => {
-    if (isEditing) {
-      if (confirm("Descartar alterações?")) {
-        setIsEditing(false);
-        setExpanded(!expanded);
-      }
-    } else {
-      setExpanded(!expanded);
+const handleToggleExpand = () => {
+  if (isEditing) {
+    if (confirm("Descartar alterações?")) {
+      setIsEditing(false);
+      const newExpanded = toggleExpandedId(training.id); // usa o helper
+      setExpanded(newExpanded);
     }
-  };
+  } else {
+    const newExpanded = toggleExpandedId(training.id);
+    setExpanded(newExpanded);
+  }
+};
 
   const updateEditableExercise = (
     index: number,
     field: keyof ExerciseFormData,
-    value: string
+    value: string,
   ) => {
     setEditableTraining((prev) => {
       const newExs = [...prev.exercicios];
@@ -126,12 +136,6 @@ export default function TrainingCard({
         },
       ],
     }));
-  };
-
-  const openExerciseModal = (jsonId?: string) => {
-    if (!jsonId) return;
-    const found = exerciciosData.find((e) => e.exerciseId === jsonId);
-    if (found) setModalExercise(found);
   };
 
   const getInitialMuscle = (ex: ExerciseFormData): string | undefined => {
@@ -173,7 +177,10 @@ export default function TrainingCard({
               className="font-bold text-[#2c3e50] border-b-2 border-[#3498db] outline-none bg-transparent"
               value={editableTraining.nome}
               onChange={(e) =>
-                setEditableTraining((prev) => ({ ...prev, nome: e.target.value }))
+                setEditableTraining((prev) => ({
+                  ...prev,
+                  nome: e.target.value,
+                }))
               }
               onClick={(e) => e.stopPropagation()}
             />
@@ -250,14 +257,23 @@ export default function TrainingCard({
                 >
                   <span
                     className={`flex-1 truncate ${
-                      ex.jsonId ? "text-blue-600 cursor-pointer hover:underline" : ""
+                      ex.jsonId
+                        ? "text-blue-600 cursor-pointer hover:underline"
+                        : ""
                     }`}
-                    onClick={() => ex.jsonId && openExerciseModal(ex.jsonId)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (ex.jsonId) {
+                        navigate(`/exercicio/${ex.jsonId}`);
+                      }
+                    }}
                   >
                     {ex.nomeExercicio || "-"}
                   </span>
                   <span className="w-12 text-center">{ex.serie || "-"}</span>
-                  <span className="w-12 text-center">{ex.repeticoes || "-"}</span>
+                  <span className="w-12 text-center">
+                    {ex.repeticoes || "-"}
+                  </span>
                   <span className="w-14 text-center">
                     {isHistoryMode && editingPesoId === ex.id ? (
                       <input

@@ -1,4 +1,3 @@
-// src/components/shared/ModalExercicioJson.tsx
 import type { ExercicioJSON } from "../../types";
 
 interface Props {
