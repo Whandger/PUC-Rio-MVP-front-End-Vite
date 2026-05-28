@@ -71,7 +71,9 @@ export default function LineChart({ data }: LineChartProps) {
       return (
         <div className="text-center py-6 text-gray-400 dark:text-gray-500">
           <span className="material-icons text-3xl">inbox</span>
-          <p className="text-sm mt-1">Sem dados suficientes para exibir evolução.</p>
+          <p className="text-sm mt-1">
+            Sem dados suficientes para exibir evolução.
+          </p>
         </div>
       );
     }
@@ -94,7 +96,8 @@ export default function LineChart({ data }: LineChartProps) {
     const range = maxPeso - minPeso || 1;
 
     const getPoint = (index: number) => {
-      const x = padding + (index / (filteredData.length - 1)) * (width - 2 * padding);
+      const x =
+        padding + (index / (filteredData.length - 1)) * (width - 2 * padding);
       const y =
         height -
         padding -
@@ -104,7 +107,8 @@ export default function LineChart({ data }: LineChartProps) {
 
     const points = filteredData.map((_, i) => getPoint(i));
     const polylinePoints = points.map((p) => `${p.x},${p.y}`).join(" ");
-    const step = filteredData.length > 10 ? Math.ceil(filteredData.length / 8) : 1;
+    const step =
+      filteredData.length > 10 ? Math.ceil(filteredData.length / 8) : 1;
 
     return (
       <>
@@ -114,19 +118,52 @@ export default function LineChart({ data }: LineChartProps) {
             style={{ minWidth: "100%", height: "auto" }}
             preserveAspectRatio="xMidYMid meet"
           >
-            <line x1={padding} y1={padding} x2={padding} y2={height - padding} stroke="#ccc" />
-            <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke="#ccc" />
-            <polyline fill="none" stroke="#3588d4" strokeWidth="2" points={polylinePoints} />
+            <line
+              x1={padding}
+              y1={padding}
+              x2={padding}
+              y2={height - padding}
+              stroke="#ccc"
+            />
+            <line
+              x1={padding}
+              y1={height - padding}
+              x2={width - padding}
+              y2={height - padding}
+              stroke="#ccc"
+            />
+            <polyline
+              fill="none"
+              stroke="#3588d4"
+              strokeWidth="2"
+              points={polylinePoints}
+            />
             {filteredData.map((d, i) => {
               const { x, y } = points[i];
-              if (i % step !== 0 && i !== 0 && i !== filteredData.length - 1) return null;
+              if (i % step !== 0 && i !== 0 && i !== filteredData.length - 1)
+                return null;
               return (
                 <g key={i}>
                   <circle cx={x} cy={y} r="4" fill="#3588d4" />
-                  <text x={x} y={y - 8} textAnchor="middle" fontSize="9" fill="#333" fontWeight="bold" className="dark:fill-gray-200">
+                  <text
+                    x={x}
+                    y={y - 8}
+                    textAnchor="middle"
+                    fontSize="9"
+                    fill="#333"
+                    fontWeight="bold"
+                    className="dark:fill-gray-200"
+                  >
                     {d.peso}kg
                   </text>
-                  <text x={x} y={height - padding + 15} textAnchor="middle" fontSize="8" fill="#666" className="dark:fill-gray-400">
+                  <text
+                    x={x}
+                    y={height - padding + 15}
+                    textAnchor="middle"
+                    fontSize="8"
+                    fill="#666"
+                    className="dark:fill-gray-400"
+                  >
                     {d.data}
                   </text>
                 </g>
@@ -135,21 +172,36 @@ export default function LineChart({ data }: LineChartProps) {
           </svg>
         </div>
 
-        <div className="w-full text-xs">
-          <p className="font-medium mb-1 text-gray-700 dark:text-gray-200">Variação de peso:</p>
-          {filteredData.map((d, i) => {
-            if (i === 0) return null;
-            const anterior = filteredData[i - 1].peso;
-            const diff = d.peso - anterior;
-            const sinal = diff > 0 ? "+" : diff < 0 ? "-" : "";
-            const cor = diff > 0 ? "text-green-600 dark:text-green-400" : diff < 0 ? "text-red-600 dark:text-red-400" : "text-gray-500 dark:text-gray-400";
-            return (
-              <div key={i} className="flex justify-between border-b border-gray-100 dark:border-gray-700 py-1 text-gray-700 dark:text-gray-300">
-                <span>{d.data}</span>
-                <span className={cor}>{sinal}{Math.abs(diff).toFixed(1)} kg</span>
-              </div>
-            );
-          })}
+        <div className="w-[full] flex items-center justify-center text-xs">
+          <div className="w-full md:w-[40%]">
+            <p className="font-medium mb-1 text-center text-gray-700 dark:text-gray-200">
+              Variação de peso:
+            </p>
+            {filteredData.map((d, i) => {
+              if (i === 0) return null;
+              const anterior = filteredData[i - 1].peso;
+              const diff = d.peso - anterior;
+              const sinal = diff > 0 ? "+" : diff < 0 ? "-" : "";
+              const cor =
+                diff > 0
+                  ? "text-green-600 dark:text-green-400"
+                  : diff < 0
+                    ? "text-red-600 dark:text-red-400"
+                    : "text-gray-500 dark:text-gray-400";
+              return (
+                <div
+                  key={i}
+                  className="flex justify-around gap-10 border-b border-gray-100 dark:border-gray-700 py-1 text-gray-700 dark:text-gray-300"
+                >
+                  <span>{d.data}</span>
+                  <span className={cor}>
+                    {sinal}
+                    {Math.abs(diff).toFixed(1)} kg
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </>
     );
@@ -160,10 +212,18 @@ export default function LineChart({ data }: LineChartProps) {
       {/* Filtro de período */}
       <div className="flex flex-col sm:flex-row gap-2">
         <div className="flex-1">
-          <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">Data início</label>
+          <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+            Data início
+          </label>
           <input
             type="date"
-            value={startDate ? new Date(startDate.split('/').reverse().join('-')).toISOString().split('T')[0] : ''}
+            value={
+              startDate
+                ? new Date(startDate.split("/").reverse().join("-"))
+                    .toISOString()
+                    .split("T")[0]
+                : ""
+            }
             onChange={(e) => {
               const val = e.target.value;
               if (!val) {
@@ -177,10 +237,18 @@ export default function LineChart({ data }: LineChartProps) {
           />
         </div>
         <div className="flex-1">
-          <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">Data fim</label>
+          <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+            Data fim
+          </label>
           <input
             type="date"
-            value={endDate ? new Date(endDate.split('/').reverse().join('-')).toISOString().split('T')[0] : ''}
+            value={
+              endDate
+                ? new Date(endDate.split("/").reverse().join("-"))
+                    .toISOString()
+                    .split("T")[0]
+                : ""
+            }
             onChange={(e) => {
               const val = e.target.value;
               if (!val) {

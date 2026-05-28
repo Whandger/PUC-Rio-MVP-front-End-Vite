@@ -63,7 +63,7 @@ export default function StatusSection() {
         </div>
 
         {/* Frequência por dia da semana */}
-        <div className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl p-4">
+        <div className="bg-white dark:bg-gray-800 border flex-col flex justify-between border-gray-100 dark:border-gray-700 rounded-xl p-4">
           <h4 className="flex items-center gap-1.5 text-[10px] font-semibold text-gray-400 dark:text-gray-300 uppercase tracking-widest mb-3.5">
             <span className="material-icons text-[#185FA5] text-sm">calendar_month</span>
             Frequência semanal
