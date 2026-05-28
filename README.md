@@ -14,17 +14,18 @@ O objetivo do sistema é auxiliar usuários no gerenciamento de sua rotina de tr
 
 A aplicação foi construída com foco em **usabilidade**, **responsividade** e **organização dos dados**, utilizando armazenamento local para simular funcionalidades de um sistema real.
 
-### 🌐 Demonstração
+---
+
+## 🌐 Demonstração
 
 **Acesse a aplicação online:**
-
 👉 https://whandger.github.io/PUC-Rio-MVP-front-End-Vite/#/
 
 ---
 
 # ✨ Funcionalidades
 
-### 🔐 Autenticação
+## 🔐 Autenticação
 
 * Login de usuários
 * Cadastro de novas contas
@@ -32,7 +33,7 @@ A aplicação foi construída com foco em **usabilidade**, **responsividade** e 
 * Logout
 * Rotas protegidas
 
-### 🏠 Home Dashboard
+## 🏠 Home Dashboard
 
 * Saudação personalizada
 * Calendário de frequência
@@ -40,7 +41,7 @@ A aplicação foi construída com foco em **usabilidade**, **responsividade** e 
 * Cronômetro automático
 * Resumo do treino selecionado
 
-### 💪 Gerenciamento de Treinos
+## 💪 Gerenciamento de Treinos
 
 * Criar treinos
 * Editar treinos
@@ -53,32 +54,38 @@ A aplicação foi construída com foco em **usabilidade**, **responsividade** e 
   * Repetições
   * Peso utilizado
 
-### 📜 Histórico
+## 📜 Histórico
 
 * Visualização completa dos treinos realizados
 * Filtro por período
 * Edição de cargas/pesos registrados
 
-### 📚 Catálogo de Exercícios
+## 📚 Catálogo de Exercícios
 
 * Base de dados em JSON
 * GIF demonstrativo
 * Instruções de execução
 * Página individual para cada exercício
 
-### 🎨 Interface
+## 📊 Status e Estatísticas
+
+* Total de treinos por ano (com fração dos dias e percentual)
+* Frequência por dia da semana (gráfico de barras)
+* Evolução de peso por exercício (gráfico de linha com filtro de período)
+* Filtro por ano automático (ano mais recente)
+* Visualização de variação de peso com tabela detalhada
+
+## 🎨 Interface
 
 * Modais interativos
-* Navegação intuitiva
+* Navegação intuitiva com Material Icons
 * Página 404 personalizada
-* Layout responsivo para desktop, tablet e mobile
+* Layout responsivo (mobile, tablet e desktop)
+* Cards com estado de expansão persistente
 
-### 💾 Persistência Local
+## 💾 Persistência Local
 
-* Usuários armazenados em localStorage
-* Treinos armazenados em localStorage
-* Histórico armazenado em localStorage
-* Estado dos cards preservado entre navegações
+* Usuários, treinos, histórico e estado dos cards armazenados em `localStorage`
 
 ---
 
@@ -94,6 +101,7 @@ A aplicação foi construída com foco em **usabilidade**, **responsividade** e 
 | Context API         | Gerenciamento de estado global      |
 | React Hooks         | Lógica reutilizável                 |
 | localStorage        | Persistência simulada               |
+| SVG + CSS           | Gráficos nativos sem dependências   |
 
 ---
 
@@ -131,113 +139,51 @@ Abra no navegador:
 http://localhost:5173
 ```
 
-> Como os dados são armazenados em localStorage, é necessário criar uma conta local para utilizar as funcionalidades.
+Como os dados são armazenados em `localStorage`, registre uma conta local para acessar as funcionalidades.
 
 ---
 
-## 📁 Estrutura Completa do Projeto
+## 📁 Estrutura do Projeto
 
 ```text
 Front-end/
-├── public/
-│   ├── account.png
-│   ├── calendar.png
-│   ├── disk_icon.svg
-│   ├── favicon.svg
-│   ├── gymWeight.png
-│   ├── home.png
-│   ├── icons.svg
-│   ├── lapis.png
-│   ├── list.png
-│   ├── log.png
-│   ├── svglogin.svg
-│   └── trash_icon.svg
-│
+├── public/                     # Arquivos estáticos
 ├── src/
-│   ├── assets/
-│   │   ├── hero.png
-│   │   ├── react.svg
-│   │   └── vite.svg
-│   │
 │   ├── components/
-│   │   ├── Conta/
-│   │   │   └── ContaHeader.tsx
-│   │   │
-│   │   ├── history/
-│   │   │   ├── HistoryFilter.tsx
-│   │   │   └── HistoryList.tsx
-│   │   │
-│   │   ├── home/
-│   │   │   ├── FrequenciaCalendar.tsx
-│   │   │   ├── Introducao.tsx
-│   │   │   ├── Presenca.tsx
-│   │   │   └── TreinoSummary.tsx
-│   │   │
-│   │   ├── shared/
-│   │   │   ├── AddEXButton.tsx
-│   │   │   ├── ExercicioJsonModal.tsx
-│   │   │   ├── ExerciseSelect.tsx
-│   │   │   ├── MuscleSelect.tsx
-│   │   │   └── TrainingCard.tsx
-│   │   │
-│   │   ├── Training/
-│   │   │   ├── AddTrainingForm.tsx
-│   │   │   ├── ExerciseRow.tsx
-│   │   │   └── TrainingList.tsx
-│   │   │
-│   │   ├── Footer.tsx
-│   │   ├── Header.tsx
-│   │   ├── Layout.tsx
-│   │   └── ProtectedRoute.tsx
-│   │
-│   ├── context/
-│   │   ├── AuthContext.tsx
-│   │   └── TrainingContext.tsx
-│   │
-│   ├── data/
-│   │   └── exercicios.json
-│   │
-│   ├── hooks/
-│   │   ├── useAddTrainingForm.ts
-│   │   ├── useExerciciosData.ts
-│   │   ├── useFrequenciaCalendar.ts
-│   │   ├── useHistoryFilter.ts
-│   │   ├── usePresenca.ts
-│   │   ├── useTrainings.ts
-│   │   └── useTreinoSummary.ts
-│   │
-│   ├── pages/
-│   │   ├── ContaPage.tsx
-│   │   ├── ExercicioDetailPage.tsx
-│   │   ├── HistoricoPage.tsx
-│   │   ├── HomePage.tsx
-│   │   ├── LoginPage.tsx
-│   │   ├── NotFound.tsx
-│   │   └── TreinoPage.tsx
-│   │
-│   ├── services/
-│   │
-│   ├── utils/
-│   │   ├── expandedCards.ts
-│   │   └── generateId.ts
-│   │
-│   ├── App.css
+│   │   ├── Conta/              # Componentes da página de conta
+│   │   ├── history/            # Componentes do histórico
+│   │   ├── home/               # Componentes da dashboard inicial
+│   │   ├── shared/             # Componentes reutilizáveis
+│   │   └── Training/           # Componentes de gerenciamento de treinos
+│   ├── context/                # Context API
+│   ├── data/                   # Base de dados local (JSON)
+│   ├── hooks/                  # Hooks customizados
+│   ├── pages/                  # Páginas da aplicação
+│   ├── services/               # Serviços e integrações
+│   ├── utils/                  # Funções utilitárias
 │   ├── App.tsx
-│   ├── index.css
 │   ├── main.tsx
 │   └── types.ts
-│
-├── eslint.config.js
-├── index.html
-├── LICENSE
-├── package-lock.json
 ├── package.json
-├── README.md
-├── tsconfig.app.json
-├── tsconfig.json
-├── tsconfig.node.json
-└── vite.config.ts
+├── vite.config.ts
+└── README.md
 ```
+
+### Principais Diretórios
+
+| Diretório    | Responsabilidade                                    |
+| ------------ | --------------------------------------------------- |
+| `components` | Componentes reutilizáveis e específicos das páginas |
+| `pages`      | Telas principais da aplicação                       |
+| `context`    | Gerenciamento de estado global com Context API      |
+| `hooks`      | Hooks customizados para reutilização de lógica      |
+| `data`       | Catálogo local de exercícios                        |
+| `utils`      | Funções auxiliares da aplicação                     |
+| `services`   | Camada preparada para integrações externas          |
+
+```
+```
+
 
 ---
 
@@ -253,6 +199,11 @@ Front-end/
 | AddEXButton        | Botão reutilizável para adicionar exercícios      |
 | HistoryFilter      | Filtro de período do histórico                    |
 | Footer             | Navegação principal da aplicação                  |
+| Accordion          | Menu expansível                                   |
+| BarChart           | Gráfico de barras da frequência semanal           |
+| LineChart          | Gráfico de evolução de peso                       |
+| ConfigSection      | Configurações da conta                            |
+| StatusSection      | Dashboard estatístico                             |
 
 ---
 
@@ -264,7 +215,7 @@ Front-end/
 | `/`                      | Home Dashboard           | ✅         |
 | `/treino`                | Gerenciamento de treinos | ✅         |
 | `/historico`             | Histórico de atividades  | ✅         |
-| `/conta`                 | Conta do usuário         | ✅         |
+| `/conta`                 | Conta e estatísticas     | ✅         |
 | `/exercicio/:exerciseId` | Detalhes do exercício    | ✅         |
 | `*`                      | Página 404               | ❌         |
 
@@ -276,22 +227,15 @@ A aplicação utiliza recursos do React Router:
 
 ### useNavigate
 
-Utilizado para:
-
-* Redirecionamento após login
-* Logout
+* Redirecionamento após login/logout
 * Navegação para detalhes dos exercícios
 
 ### useLocation
 
-Utilizado para:
-
-* Destacar rota ativa
-* Verificar páginas específicas
+* Destacar rota ativa no footer
+* Verificar página de login
 
 ### useParams
-
-Utilizado para:
 
 * Capturar o parâmetro `exerciseId`
 * Carregar informações do exercício selecionado
@@ -300,7 +244,7 @@ Utilizado para:
 
 # 👤 Sistema de Autenticação
 
-O gerenciamento de usuários é realizado através do **AuthContext** utilizando armazenamento local.
+Gerenciamento via `AuthContext` utilizando `localStorage`.
 
 ### Registro
 
@@ -318,92 +262,91 @@ O gerenciamento de usuários é realizado através do **AuthContext** utilizando
 * Remove sessão
 * Redireciona para login
 
-### Recuperação de Senha
+### Recuperação
 
 * Simulação de envio por e-mail
-* Registro em console
 
 ---
 
 # 🧪 Simulação de Dados
 
-A aplicação utiliza um modelo totalmente client-side.
-
 ### Exercícios
+
+Os exercícios são carregados de:
 
 ```text
 src/data/exercicios.json
 ```
 
-Contém:
+Cada item contém:
 
-* Nome do exercício
+* Nome
 * Grupo muscular
 * GIF demonstrativo
 * Instruções de execução
 
 ### Persistência
 
-Armazenamento local de:
+São armazenados em `localStorage`:
 
 * Usuários
 * Treinos
 * Histórico
-* Frequência
-* Estado dos cards expandidos
+* Estado dos cards
 
 ---
 
 # 📱 Responsividade
 
-O layout foi desenvolvido com Tailwind CSS e adapta-se automaticamente para:
+O projeto utiliza Tailwind CSS para adaptação entre dispositivos:
 
-### Mobile 📱
+### Mobile
 
 * Navegação inferior
 * Componentes empilhados
+* Scroll horizontal quando necessário
 
-### Tablet 📟
+### Tablet
 
 * Ajustes intermediários de layout
 
-### Desktop 💻
+### Desktop
 
-* Footer transformado em barra lateral
-* Melhor aproveitamento de espaço
+* Footer lateral
+* Gráficos com largura controlada
+* Melhor aproveitamento do espaço
 
 ---
 
 # 🎯 Principais Conceitos Aplicados
 
-* Componentização
+* Componentização com React + TypeScript
 * Context API
-* React Hooks
+* React Hooks (`useState`, `useEffect`, `useMemo`, `useCallback`)
 * Rotas protegidas
-* Gerenciamento de estado
-* Persistência local
-* Responsividade
-* Reutilização de componentes
-* Tipagem com TypeScript
-* Organização por responsabilidades
+* Persistência local com `localStorage`
+* Gráficos nativos com SVG
+* Layout responsivo com Tailwind CSS
+* Hooks de navegação
+* Página 404 personalizada
+* Componentes reutilizáveis
+* Estatísticas e filtros dinâmicos
 
 ---
 
 # 🎓 Projeto Acadêmico
 
-Este projeto foi desenvolvido como parte da disciplina de **Desenvolvimento Web** da **PUC-Rio**, com o objetivo de aplicar conceitos modernos de desenvolvimento frontend utilizando React e TypeScript.
+Este projeto foi desenvolvido como parte da disciplina de Desenvolvimento Web da PUC-Rio, aplicando conceitos modernos de desenvolvimento frontend e arquitetura de aplicações React.
 
 ---
 
 # 📝 Licença
 
-Projeto desenvolvido para fins acadêmicos.
-
-Sem licença comercial definida.
+Projeto acadêmico sem licença comercial definida.
 
 ---
 
-## 👨‍💻 Autor
+# 👨‍💻 Autor
 
 **Whandger Wolf**
 
