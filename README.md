@@ -164,7 +164,7 @@ Front-end/
 │   │   │   └── ContaHeader.tsx
 │   │   │
 │   │   ├── history/
-│   │   │   ├── HistortyFilter.tsx
+│   │   │   ├── HistoryFilter.tsx
 │   │   │   └── HistoryList.tsx
 │   │   │
 │   │   ├── home/

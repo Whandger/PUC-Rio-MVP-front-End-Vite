@@ -1,4 +1,4 @@
-import HistoryFilter from "../components/history/HistortyFilter";
+import HistoryFilter from "../components/history/HistoryFilter";
 import HistoryList from "../components/history/HistoryList";
 import { useTrainingContext } from "../context/TrainingContext";
 import { useHistoryFilter } from "../hooks/useHistoryFilter";
