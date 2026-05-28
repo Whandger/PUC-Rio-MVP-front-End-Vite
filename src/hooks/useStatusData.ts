@@ -64,8 +64,8 @@ export function useStatusData() {
     return Object.entries(contagem).map(([dia, qtd]) => ({ dia, qtd }));
   }, [historyFiltrado]);
 
-  // Exercícios presentes no histórico filtrado
-  const historicoExercicios = useMemo(() => {
+  // Exercícios do JSON presentes no histórico (com jsonId)
+  const exerciciosJSONdoHistorico = useMemo(() => {
     const map = new Map<string, { jsonId: string; nome: string; musculos: string[] }>();
     historyFiltrado.forEach((record) => {
       record.exercicios.forEach((ex) => {
@@ -84,18 +84,42 @@ export function useStatusData() {
     return Array.from(map.values());
   }, [historyFiltrado, exerciciosJSON]);
 
-  // Músculos disponíveis
+  // Exercícios manuais (sem jsonId) do histórico filtrado
+  const exerciciosManuais = useMemo(() => {
+    const map = new Map<string, { jsonId: string; nome: string; musculos: string[] }>();
+    historyFiltrado.forEach((record) => {
+      record.exercicios.forEach((ex) => {
+        if (!ex.jsonId && ex.nomeExercicio.trim() !== "") {
+          const id = "manual_" + ex.nomeExercicio.trim().toLowerCase();
+          if (!map.has(id)) {
+            map.set(id, {
+              jsonId: id,
+              nome: ex.nomeExercicio.trim(),
+              musculos: [],
+            });
+          }
+        }
+      });
+    });
+    return Array.from(map.values());
+  }, [historyFiltrado]);
+
+  // Músculos disponíveis (apenas dos exercícios do JSON)
   const musculos = useMemo(() => {
     const set = new Set<string>();
-    historicoExercicios.forEach((ex) => ex.musculos.forEach((m) => set.add(m)));
+    exerciciosJSONdoHistorico.forEach((ex) => ex.musculos.forEach((m) => set.add(m)));
     return Array.from(set).sort();
-  }, [historicoExercicios]);
+  }, [exerciciosJSONdoHistorico]);
 
-  // Exercícios do músculo selecionado
+  // Lista de exercícios
   const exerciciosDoMusculo = useMemo(() => {
-    if (!selectedMuscle) return [];
-    return historicoExercicios.filter((ex) => ex.musculos.includes(selectedMuscle));
-  }, [selectedMuscle, historicoExercicios]);
+    if (selectedMuscle === "") {
+      // Modo "Músculo": exibe apenas os manuais
+      return exerciciosManuais;
+    }
+    // Modo músculo específico: filtra os do JSON pelo músculo
+    return exerciciosJSONdoHistorico.filter((ex) => ex.musculos.includes(selectedMuscle));
+  }, [selectedMuscle, exerciciosJSONdoHistorico, exerciciosManuais]);
 
   // Evolução de peso para o exercício selecionado
   const pesoAoLongoTempo = useMemo(() => {
@@ -103,8 +127,18 @@ export function useStatusData() {
     const evo: { data: string; peso: number }[] = [];
     historyFiltrado.forEach((record) => {
       record.exercicios.forEach((ex) => {
-        if (ex.jsonId === selectedExercise && ex.peso) {
-          evo.push({ data: record.data, peso: parseFloat(ex.peso) || 0 });
+        if (selectedExercise.startsWith("manual_")) {
+          // Exercício manual: compara pelo nome normalizado
+          const nomeNormalizado = ex.nomeExercicio.trim().toLowerCase();
+          const selectedNome = selectedExercise.replace("manual_", "");
+          if (!ex.jsonId && nomeNormalizado === selectedNome && ex.peso) {
+            evo.push({ data: record.data, peso: parseFloat(ex.peso) || 0 });
+          }
+        } else {
+          // Exercício do JSON: compara pelo jsonId
+          if (ex.jsonId === selectedExercise && ex.peso) {
+            evo.push({ data: record.data, peso: parseFloat(ex.peso) || 0 });
+          }
         }
       });
     });
@@ -142,6 +176,6 @@ export function useStatusData() {
     musculos,
     exerciciosDoMusculo,
     pesoAoLongoTempo,
-    percentualDiasTreinados
+    percentualDiasTreinados,
   };
 }

@@ -93,7 +93,7 @@ export default function StatusSection() {
             setSelectedExercise("");
           }}
         >
-          <option value="">Selecione um grupo muscular</option>
+          <option value="">Músculo</option> 
           {musculos.map((m) => (
             <option key={m} value={m}>
               {m}
@@ -101,7 +101,7 @@ export default function StatusSection() {
           ))}
         </select>
 
-        {selectedMuscle && (
+
           <select
             className="w-full border border-gray-200 rounded-lg px-3 py-2 mb-4 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#3588d4] transition"
             value={selectedExercise}
@@ -114,7 +114,7 @@ export default function StatusSection() {
               </option>
             ))}
           </select>
-        )}
+
 
         {pesoAoLongoTempo.length > 1 && <LineChart data={pesoAoLongoTempo} />}
         {selectedExercise && pesoAoLongoTempo.length <= 1 && (
