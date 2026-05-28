@@ -11,8 +11,8 @@ export default function HistoryList({ records }: Props) {
 
   if (records.length === 0) {
     return (
-      <section className="bg-white w-full justify-center flex items-center h-16 mt-2 rounded-lg shadow-md p-4">
-        <p className="text-gray-500">
+      <section className="bg-white dark:bg-gray-800 w-full justify-center flex items-center h-16 mt-2 rounded-lg shadow-md p-4">
+        <p className="text-gray-500 dark:text-gray-400">
           {records.length === 0 && history.length > 0
             ? "Nenhum treino encontrado para o período selecionado"
             : "Nenhum treino realizado ainda"}

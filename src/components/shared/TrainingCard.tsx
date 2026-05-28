@@ -46,18 +46,15 @@ export default function TrainingCard({
   const navigate = useNavigate();
 
   const [expanded, setExpanded] = useState(() => {
-  const expandedIds = getExpandedIds();
-  return expandedIds.includes(training.id);
-});
+    const expandedIds = getExpandedIds();
+    return expandedIds.includes(training.id);
+  });
   const [isEditing, setIsEditing] = useState(false);
   const [editableTraining, setEditableTraining] = useState<Training>(() => ({
     ...training,
   }));
 
-  const [modalExercise, setModalExercise] = useState<ExercicioJSON | null>(
-    null,
-  );
-
+  const [modalExercise, setModalExercise] = useState<ExercicioJSON | null>(null);
   // Edição rápida de peso
   const [editingPesoId, setEditingPesoId] = useState<number | null>(null);
   const [editPesoValue, setEditPesoValue] = useState("");
@@ -90,18 +87,18 @@ export default function TrainingCard({
     setIsEditing(false);
   };
 
-const handleToggleExpand = () => {
-  if (isEditing) {
-    if (confirm("Descartar alterações?")) {
-      setIsEditing(false);
-      const newExpanded = toggleExpandedId(training.id); // usa o helper
+  const handleToggleExpand = () => {
+    if (isEditing) {
+      if (confirm("Descartar alterações?")) {
+        setIsEditing(false);
+        const newExpanded = toggleExpandedId(training.id); // usa o helper
+        setExpanded(newExpanded);
+      }
+    } else {
+      const newExpanded = toggleExpandedId(training.id);
       setExpanded(newExpanded);
     }
-  } else {
-    const newExpanded = toggleExpandedId(training.id);
-    setExpanded(newExpanded);
-  }
-};
+  };
 
   const updateEditableExercise = (
     index: number,
@@ -161,20 +158,20 @@ const handleToggleExpand = () => {
   };
 
   return (
-    <div className="w-[92%] bg-white rounded-lg shadow border border-[#3498db] overflow-hidden transition-all">
+    <div className="w-[92%] bg-white dark:bg-gray-800 rounded-lg shadow border border-[#3498db] overflow-hidden transition-all">
       {/* Cabeçalho */}
       <div
         onClick={handleToggleExpand}
         className={`flex justify-between items-center px-4 py-3 cursor-pointer ${
           expanded
-            ? "bg-[#e9e9e9] rounded-t-lg border-b border-[#3498db]"
-            : "bg-[#f9f9f9] rounded-lg"
+            ? "bg-[#e9e9e9] dark:bg-gray-700 rounded-t-lg border-b border-[#3498db]"
+            : "bg-[#f9f9f9] dark:bg-gray-800 rounded-lg"
         }`}
       >
         <div className="flex items-center gap-3">
           {isEditing ? (
             <input
-              className="font-bold text-[#2c3e50] border-b-2 border-[#3498db] outline-none bg-transparent"
+              className="font-bold text-[#2c3e50] dark:text-gray-200 border-b-2 border-[#3498db] outline-none bg-transparent"
               value={editableTraining.nome}
               onChange={(e) =>
                 setEditableTraining((prev) => ({
@@ -185,16 +182,16 @@ const handleToggleExpand = () => {
               onClick={(e) => e.stopPropagation()}
             />
           ) : (
-            <span className="font-bold text-[#2c3e50]">{training.nome}</span>
+            <span className="font-bold text-[#2c3e50] dark:text-gray-200">{training.nome}</span>
           )}
           {dataTreino && (
-            <span className="text-xs text-gray-500">{dataTreino}</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">{dataTreino}</span>
           )}
         </div>
 
         <div className="flex items-center gap-2">
           {duracao && (
-            <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+            <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
               {duracao}
             </span>
           )}
@@ -209,7 +206,7 @@ const handleToggleExpand = () => {
         <div className="border-t-2 border-[#3498db]">
           {/* Cabeçalho da tabela */}
           {isEditing ? (
-            <div className="flex items-center gap-2 px-4 py-2 bg-[#34495e] text-white font-bold text-sm">
+            <div className="flex items-center gap-2 px-4 py-2 bg-[#34495e] dark:bg-gray-700 text-white font-bold text-sm">
               <span className="w-20 sm:w-24 text-center">Músculo</span>
               <span className="flex-1">Exercício</span>
               <span className="w-12 text-center">Séries</span>
@@ -218,7 +215,7 @@ const handleToggleExpand = () => {
               <span className="w-6"></span>
             </div>
           ) : (
-            <div className="flex items-center gap-2 px-4 py-2 bg-[#34495e] text-white font-bold text-sm">
+            <div className="flex items-center gap-2 px-4 py-2 bg-[#34495e] dark:bg-gray-700 text-white font-bold text-sm">
               <span className="flex-1 min-w-0">Exercício</span>
               <span className="w-12 shrink-0 text-center">Séries</span>
               <span className="w-12 shrink-0 text-center">Reps</span>
@@ -253,13 +250,13 @@ const handleToggleExpand = () => {
               {training.exercicios.map((ex) => (
                 <div
                   key={ex.id}
-                  className="flex items-center gap-2 px-4 py-2 border-b border-gray-200"
+                  className="flex items-center gap-2 px-4 py-2 border-b border-gray-200 dark:border-gray-700"
                 >
                   <span
                     className={`flex-1 truncate ${
                       ex.jsonId
-                        ? "text-blue-600 cursor-pointer hover:underline"
-                        : ""
+                        ? "text-blue-600 dark:text-blue-400 cursor-pointer hover:underline"
+                        : "text-gray-600 dark:text-gray-300"
                     }`}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -270,15 +267,13 @@ const handleToggleExpand = () => {
                   >
                     {ex.nomeExercicio || "-"}
                   </span>
-                  <span className="w-12 text-center">{ex.serie || "-"}</span>
-                  <span className="w-12 text-center">
-                    {ex.repeticoes || "-"}
-                  </span>
+                  <span className="w-12 text-center text-gray-600 dark:text-gray-300">{ex.serie || "-"}</span>
+                  <span className="w-12 text-center text-gray-600 dark:text-gray-300">{ex.repeticoes || "-"}</span>
                   <span className="w-14 text-center">
                     {isHistoryMode && editingPesoId === ex.id ? (
                       <input
                         type="text"
-                        className="w-full border border-gray-300 rounded px-1 py-0.5 text-sm text-center"
+                        className="w-full border border-gray-300 dark:border-gray-600 rounded px-1 py-0.5 text-sm text-center bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200"
                         value={editPesoValue}
                         onChange={(e) => setEditPesoValue(e.target.value)}
                         onKeyDown={(e) => {
@@ -301,8 +296,8 @@ const handleToggleExpand = () => {
                         }}
                         className={
                           isHistoryMode && !isEditing
-                            ? "cursor-pointer hover:text-[#3588d4]"
-                            : ""
+                            ? "cursor-pointer hover:text-[#3588d4] dark:hover:text-blue-400 text-gray-600 dark:text-gray-300"
+                            : "text-gray-600 dark:text-gray-300"
                         }
                       >
                         {ex.peso ? `${ex.peso} kg` : "-"}
@@ -322,7 +317,7 @@ const handleToggleExpand = () => {
           )}
 
           {/* Footer com ações */}
-          <div className="flex gap-2 px-4 py-2 items-center justify-end border-t border-gray-200">
+          <div className="flex gap-2 px-4 py-2 items-center justify-end border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-2">
               {!isEditing ? (
                 <span className="cursor-pointer" onClick={startEditing}>
@@ -333,7 +328,7 @@ const handleToggleExpand = () => {
                   <img
                     src={`${baseUrl}trash_icon.svg`}
                     alt="Excluir"
-                    className="h-6 w-6 opacity-60 cursor-pointer hover:opacity-100"
+                    className="h-6 w-6 opacity-60 cursor-pointer hover:opacity-100 dark:invert"
                     onClick={() => onDelete?.(training.id)}
                   />
                   <span className="cursor-pointer" onClick={saveEditing}>

@@ -63,22 +63,22 @@ export default function TreinoSummary({
 
   if (trainings.length === 0) {
     return (
-      <section className="bg-white w-[92%] rounded-lg shadow-md p-4">
-        <p className="text-gray-500">Nenhum treino cadastrado</p>
+      <section className="bg-white dark:bg-gray-800 w-[92%] rounded-lg shadow-md p-4">
+        <p className="text-gray-500 dark:text-gray-400">Nenhum treino cadastrado</p>
       </section>
     );
   }
 
   return (
-    <section className="bg-white w-[92%] rounded-lg shadow-md p-4">
+    <section className="bg-white dark:bg-gray-800 w-[92%] rounded-lg shadow-md p-4">
       <div className="flex justify-between items-center mb-2 relative">
-        <h3 className="text-gray-700 font-bold text-[16px]">
+        <h3 className="text-gray-700 dark:text-gray-200 font-bold text-[16px]">
           {training?.nome}
         </h3>
 
         <button
           onClick={() => setShowDropdown(!showDropdown)}
-          className="text-[#3588d4] font-bold text-sm cursor-pointer hover:underline"
+          className="text-[#3588d4] dark:text-blue-400 font-bold text-sm cursor-pointer hover:underline"
         >
           Escolher treino
         </button>
@@ -86,7 +86,7 @@ export default function TreinoSummary({
         {showDropdown && (
           <div
             ref={dropdownRef}
-            className="absolute right-0 top-8 z-30 bg-white border border-gray-200 rounded-lg shadow-lg w-48 max-h-60 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="absolute right-0 top-8 z-30 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg w-48 max-h-60 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           >
             {trainings.map((t, index) => (
               <div
@@ -95,10 +95,10 @@ export default function TreinoSummary({
                   onSelectTraining(index);
                   setShowDropdown(false);
                 }}
-                className={`px-3 py-2 cursor-pointer text-[17px] hover:bg-blue-50 ${
+                className={`px-3 py-2 cursor-pointer text-[17px] hover:bg-blue-50 dark:hover:bg-gray-700 ${
                   index === selectedIndex
-                    ? "bg-blue-100 text-[#3588d4] font-bold"
-                    : "text-gray-700"
+                    ? "bg-blue-100 dark:bg-blue-900/40 text-[#3588d4] dark:text-blue-300 font-bold"
+                    : "text-gray-700 dark:text-gray-300"
                 }`}
               >
                 {t.nome}
@@ -112,7 +112,7 @@ export default function TreinoSummary({
         {training?.exercicios.map((ex) => (
           <div
             key={ex.id}
-            className="flex justify-between border-b border-gray-300 items-baseline text-gray-600"
+            className="flex justify-between border-b border-gray-300 dark:border-gray-600 items-baseline text-gray-600 dark:text-gray-300"
           >
             <span className="flex-1 truncate mr-2">{ex.nomeExercicio}</span>
             <span className="shrink-0 flex items-center gap-1">
@@ -122,7 +122,7 @@ export default function TreinoSummary({
                 <span className="flex items-center gap-1">
                   <input
                     type="text"
-                    className="w-14 border border-gray-300 rounded px-1 py-0.5 text-sm text-center"
+                    className="w-14 border border-gray-300 dark:border-gray-600 rounded px-1 py-0.5 text-sm text-center bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200"
                     value={editPesoValue}
                     onChange={(e) => setEditPesoValue(e.target.value)}
                     onKeyDown={(e) => {
@@ -131,14 +131,14 @@ export default function TreinoSummary({
                     }}
                     autoFocus
                   />
-                  <span className="text-sm">kg</span>
+                  <span className="text-sm dark:text-gray-300">kg</span>
                   {/* Botão de confirmar */}
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       savePeso(ex);
                     }}
-                    className="text-green-600 hover:text-green-800 text-lg leading-none ml-1"
+                    className="text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-500 text-lg leading-none ml-1"
                     title="Salvar"
                   >
                     ✔️
@@ -149,7 +149,7 @@ export default function TreinoSummary({
                       e.stopPropagation();
                       cancelPeso();
                     }}
-                    className="text-red-500 hover:text-red-700 text-lg leading-none"
+                    className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-500 text-lg leading-none"
                     title="Cancelar"
                   >
                     ✕
@@ -158,7 +158,7 @@ export default function TreinoSummary({
               ) : (
                 <span
                   onClick={() => startEditingPeso(ex)}
-                  className="cursor-pointer hover:text-[#3588d4] hover:underline relative z-10"
+                  className="cursor-pointer hover:text-[#3588d4] dark:hover:text-blue-400 hover:underline relative z-10"
                   title="Clique para editar o peso"
                 >
                   {ex.peso ? `${ex.peso} kg` : "— kg"}

@@ -32,8 +32,8 @@ export default function HistoryFilter({
   onClear,
 }: Props) {
   return (
-    <div className="w-full bg-white rounded-lg shadow-md p-3 mb-2">
-      <div className="flex items-center gap-2 text-sm text-gray-700">
+    <div className="w-full bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 mb-2">
+      <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
         <span className="font-medium shrink-0">Filtro:</span>
         <div className="flex items-center gap-1 flex-1">
           <span className="shrink-0">De</span>
@@ -41,7 +41,7 @@ export default function HistoryFilter({
             type="date"
             value={toInputFormat(startDate)}
             onChange={(e) => onStartDateChange(toDisplayFormat(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-sm flex-1 min-w-0"
+            className="border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm flex-1 min-w-0 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200"
           />
         </div>
         <div className="flex items-center gap-1 flex-1">
@@ -50,7 +50,7 @@ export default function HistoryFilter({
             type="date"
             value={toInputFormat(endDate)}
             onChange={(e) => onEndDateChange(toDisplayFormat(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-sm flex-1 min-w-0"
+            className="border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm flex-1 min-w-0 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200"
           />
         </div>
       </div>
@@ -59,13 +59,13 @@ export default function HistoryFilter({
       <div className="flex justify-start gap-2 mt-2">
         <button
           onClick={onSearch}
-          className="bg-[#3588d4] text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition"
+          className="bg-[#3588d4] text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition dark:bg-blue-600 dark:hover:bg-blue-700"
         >
           Procurar
         </button>
         <button
           onClick={onClear}
-          className="bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-400 transition"
+          className="bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 px-3 py-1 rounded text-sm hover:bg-gray-400 dark:hover:bg-gray-500 transition"
         >
           Todos
         </button>

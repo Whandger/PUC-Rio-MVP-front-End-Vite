@@ -5,6 +5,7 @@ interface User {
   id: string;
   username: string;
   email: string;
+  photoUrl?: string;
 }
 
 interface AuthContextType {
@@ -14,6 +15,7 @@ interface AuthContextType {
   register: (email: string, username: string, password: string) => Promise<boolean>;
   logout: () => void;
   forgotPassword: (email: string) => Promise<boolean>;
+  updateProfile: (data: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -30,7 +32,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (username: string, password: string): Promise<boolean> => {
-    // Simula uma chamada de API
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const foundUser = users.find(
       (u: any) => u.username === username && u.password === password
@@ -41,6 +42,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         id: foundUser.id,
         username: foundUser.username,
         email: foundUser.email,
+        photoUrl: foundUser.photoUrl, // carrega a foto salva
       };
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
@@ -95,6 +97,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return false;
   };
 
+  const updateProfile = (data: Partial<User>) => {
+    setUser(prev => {
+      if (!prev) return null;
+      const updated = { ...prev, ...data };
+      localStorage.setItem('user', JSON.stringify(updated));
+
+      // Atualiza também no array de usuários (para persistir entre sessões)
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const index = users.findIndex((u: any) => u.id === prev.id);
+      if (index !== -1) {
+        users[index] = { ...users[index], ...data };
+        localStorage.setItem('users', JSON.stringify(users));
+      }
+
+      return updated;
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -104,6 +124,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         register,
         logout,
         forgotPassword,
+        updateProfile,
       }}
     >
       {children}

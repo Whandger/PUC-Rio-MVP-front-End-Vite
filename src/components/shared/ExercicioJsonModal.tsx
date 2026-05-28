@@ -13,13 +13,13 @@ export default function ModalExercicioJson({ exercise, onClose }: Props) {
     const instrucoes = exercise.instrucoes;
 
     if (!instrucoes) {
-      return <p className="text-gray-700">Instruções em breve.</p>;
+      return <p className="text-gray-700 dark:text-gray-300">Instruções em breve.</p>;
     }
 
     // Se for um array, renderiza cada item em uma linha
     if (Array.isArray(instrucoes)) {
       return (
-        <div className="space-y-4 text-gray-700">
+        <div className="space-y-4 text-gray-700 dark:text-gray-300">
           {instrucoes.map((passo, index) => (
             <p key={index} className="pl-1">
               {passo}
@@ -30,22 +30,22 @@ export default function ModalExercicioJson({ exercise, onClose }: Props) {
     }
 
     // Se for uma string simples
-    return <p className="text-gray-700">{instrucoes}</p>;
+    return <p className="text-gray-700 dark:text-gray-300">{instrucoes}</p>;
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md max-h-[90vh] flex flex-col relative">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md max-h-[90vh] flex flex-col relative">
         {/* Botão de fechar */}
         <button
-          className="absolute top-3 right-3 z-10 border border-gray-500 bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center text-gray-700 hover:bg-gray-400 text-[18px] leading-none shadow-md"
+          className="absolute top-3 right-3 z-10 border border-gray-500 dark:border-gray-400 bg-gray-300 dark:bg-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-gray-700 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-500 text-[18px] leading-none shadow-md"
           onClick={onClose}
         >
           ✕
         </button>
 
         {/* Título */}
-        <h3 className="text-xl font-bold p-4 py-10 pb-2 text-center shrink-0">
+        <h3 className="text-xl font-bold p-4 py-10 pb-2 text-center shrink-0 text-gray-900 dark:text-gray-100">
           {exercise.nome}
         </h3>
 
@@ -57,7 +57,7 @@ export default function ModalExercicioJson({ exercise, onClose }: Props) {
             className="w-full h-auto rounded mb-4"
           />
           <div>
-            <h4 className="font-semibold mb-3">Como realizar:</h4>
+            <h4 className="font-semibold mb-3 text-gray-800 dark:text-gray-200">Como realizar:</h4>
             {renderInstrucoes()}
           </div>
         </div>

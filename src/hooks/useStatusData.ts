@@ -161,6 +161,20 @@ export function useStatusData() {
     return parseFloat(((totalTreinos / diasDoAno) * 100).toFixed(1));
   }, [selectedYear, totalTreinos, diasDoAno]);
 
+ const treinosPorData = useMemo(() => {
+    const map: Record<string, number> = {};
+    historyFiltrado.forEach((r) => {
+      // r.data está no formato "dd/mm/aaaa"
+      const partes = r.data.split("/");
+      if (partes.length === 3) {
+        const [d, m, a] = partes;
+        const key = `${a}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+        map[key] = (map[key] ?? 0) + 1;
+      }
+    });
+    return map;
+  }, [historyFiltrado]);
+
   return {
     selectedYear,
     setSelectedYear: handleYearChange,
@@ -176,6 +190,7 @@ export function useStatusData() {
     musculos,
     exerciciosDoMusculo,
     pesoAoLongoTempo,
+    treinosPorData,
     percentualDiasTreinados,
   };
 }

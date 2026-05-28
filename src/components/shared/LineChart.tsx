@@ -69,7 +69,7 @@ export default function LineChart({ data }: LineChartProps) {
   const renderContent = () => {
     if (data.length < 2) {
       return (
-        <div className="text-center py-6 text-gray-400">
+        <div className="text-center py-6 text-gray-400 dark:text-gray-500">
           <span className="material-icons text-3xl">inbox</span>
           <p className="text-sm mt-1">Sem dados suficientes para exibir evolução.</p>
         </div>
@@ -78,7 +78,7 @@ export default function LineChart({ data }: LineChartProps) {
 
     if (filteredData.length < 2) {
       return (
-        <div className="text-center py-6 text-gray-400">
+        <div className="text-center py-6 text-gray-400 dark:text-gray-500">
           <span className="material-icons text-3xl">inbox</span>
           <p className="text-sm mt-1">Nenhum dado no período selecionado.</p>
         </div>
@@ -108,7 +108,7 @@ export default function LineChart({ data }: LineChartProps) {
 
     return (
       <>
-        <div className="overflow-x-auto w-full border border-gray-100 rounded-lg p-2 max-w-2xl mx-auto">
+        <div className="overflow-x-auto w-full border border-gray-100 dark:border-gray-700 rounded-lg p-2 max-w-2xl mx-auto">
           <svg
             viewBox={`0 0 ${width} ${height}`}
             style={{ minWidth: "100%", height: "auto" }}
@@ -123,10 +123,10 @@ export default function LineChart({ data }: LineChartProps) {
               return (
                 <g key={i}>
                   <circle cx={x} cy={y} r="4" fill="#3588d4" />
-                  <text x={x} y={y - 8} textAnchor="middle" fontSize="9" fill="#333" fontWeight="bold">
+                  <text x={x} y={y - 8} textAnchor="middle" fontSize="9" fill="#333" fontWeight="bold" className="dark:fill-gray-200">
                     {d.peso}kg
                   </text>
-                  <text x={x} y={height - padding + 15} textAnchor="middle" fontSize="8" fill="#666">
+                  <text x={x} y={height - padding + 15} textAnchor="middle" fontSize="8" fill="#666" className="dark:fill-gray-400">
                     {d.data}
                   </text>
                 </g>
@@ -136,15 +136,15 @@ export default function LineChart({ data }: LineChartProps) {
         </div>
 
         <div className="w-full text-xs">
-          <p className="font-medium mb-1">Variação de peso:</p>
+          <p className="font-medium mb-1 text-gray-700 dark:text-gray-200">Variação de peso:</p>
           {filteredData.map((d, i) => {
             if (i === 0) return null;
             const anterior = filteredData[i - 1].peso;
             const diff = d.peso - anterior;
             const sinal = diff > 0 ? "+" : diff < 0 ? "-" : "";
-            const cor = diff > 0 ? "text-green-600" : diff < 0 ? "text-red-600" : "text-gray-500";
+            const cor = diff > 0 ? "text-green-600 dark:text-green-400" : diff < 0 ? "text-red-600 dark:text-red-400" : "text-gray-500 dark:text-gray-400";
             return (
-              <div key={i} className="flex justify-between border-b border-gray-100 py-1">
+              <div key={i} className="flex justify-between border-b border-gray-100 dark:border-gray-700 py-1 text-gray-700 dark:text-gray-300">
                 <span>{d.data}</span>
                 <span className={cor}>{sinal}{Math.abs(diff).toFixed(1)} kg</span>
               </div>
@@ -160,7 +160,7 @@ export default function LineChart({ data }: LineChartProps) {
       {/* Filtro de período */}
       <div className="flex flex-col sm:flex-row gap-2">
         <div className="flex-1">
-          <label className="text-xs text-gray-500 mb-1 block">Data início</label>
+          <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">Data início</label>
           <input
             type="date"
             value={startDate ? new Date(startDate.split('/').reverse().join('-')).toISOString().split('T')[0] : ''}
@@ -173,11 +173,11 @@ export default function LineChart({ data }: LineChartProps) {
               const [year, month, day] = val.split("-");
               setStartDate(`${day}/${month}/${year}`);
             }}
-            className="w-full border border-gray-200 rounded px-2 py-1 text-xs bg-gray-50"
+            className="w-full border border-gray-200 dark:border-gray-600 rounded px-2 py-1 text-xs bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
           />
         </div>
         <div className="flex-1">
-          <label className="text-xs text-gray-500 mb-1 block">Data fim</label>
+          <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">Data fim</label>
           <input
             type="date"
             value={endDate ? new Date(endDate.split('/').reverse().join('-')).toISOString().split('T')[0] : ''}
@@ -190,7 +190,7 @@ export default function LineChart({ data }: LineChartProps) {
               const [year, month, day] = val.split("-");
               setEndDate(`${day}/${month}/${year}`);
             }}
-            className="w-full border border-gray-200 rounded px-2 py-1 text-xs bg-gray-50"
+            className="w-full border border-gray-200 dark:border-gray-600 rounded px-2 py-1 text-xs bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
           />
         </div>
       </div>

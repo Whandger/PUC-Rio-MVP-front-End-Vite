@@ -10,7 +10,7 @@ interface Props {
 export default function TrainingList({ trainings, onDelete, onUpdateTraining }: Props) {
   if (trainings.length === 0) {
     return (
-      <div className="w-[92%] bg-white rounded-lg shadow p-4 text-center text-gray-500">
+      <div className="w-[92%] bg-white dark:bg-gray-800 rounded-lg shadow p-4 text-center text-gray-500 dark:text-gray-400">
         Nenhum treino encontrado
       </div>
     );

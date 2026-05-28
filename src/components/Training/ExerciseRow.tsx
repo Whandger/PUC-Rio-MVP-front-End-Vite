@@ -117,7 +117,7 @@ export default function ExerciseRow({
           <input
             type="text"
             placeholder="Digite o nome do exercício"
-            className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
             value={values.nomeExercicio}
             onChange={(e) => onChange("nomeExercicio", e.target.value)}
             required
@@ -132,7 +132,7 @@ export default function ExerciseRow({
           inputMode="numeric"
           pattern="[0-9]*"
           placeholder="Sér."
-          className="w-full border border-gray-300 rounded px-1 py-1.5 text-sm text-center"
+          className="w-full border border-gray-300 dark:border-gray-600 rounded px-1 py-1.5 text-sm text-center bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
           value={values.serie}
           onChange={(e) => {
             const onlyNumbers = e.target.value.replace(/\D/g, "");
@@ -149,7 +149,7 @@ export default function ExerciseRow({
           inputMode="numeric"
           pattern="[0-9]*"
           placeholder="Rep."
-          className="w-full border border-gray-300 rounded px-1 py-1.5 text-sm text-center"
+          className="w-full border border-gray-300 dark:border-gray-600 rounded px-1 py-1.5 text-sm text-center bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
           value={values.repeticoes}
           onChange={(e) => {
             const onlyNumbers = e.target.value.replace(/\D/g, "");
@@ -166,7 +166,7 @@ export default function ExerciseRow({
           inputMode="decimal"
           pattern="[0-9]*\.?[0-9]*"
           placeholder="Kg"
-          className="w-full border border-gray-300 rounded px-1 py-1.5 text-sm text-center"
+          className="w-full border border-gray-300 dark:border-gray-600 rounded px-1 py-1.5 text-sm text-center bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
           value={values.peso || ""}
           onChange={(e) => {
             let val = e.target.value.replace(/[^0-9.]/g, "");
@@ -185,7 +185,7 @@ export default function ExerciseRow({
             <img
               src={`${baseUrl}trash_icon.svg`}
               alt="Excluir exercício"
-              className="h-6 w-6 opacity-60 hover:opacity-100"
+              className="h-6 w-6 opacity-60 hover:opacity-100 dark:invert"
             />
           </div>
         )}

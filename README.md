@@ -36,56 +36,71 @@ A aplicação foi construída com foco em **usabilidade**, **responsividade** e 
 ## 🏠 Home Dashboard
 
 * Saudação personalizada
-* Calendário de frequência
-* Registro de presença
-* Cronômetro automático
+* Calendário de frequência semanal
+* Registro de presença com cronômetro automático
 * Resumo do treino selecionado
 
 ## 💪 Gerenciamento de Treinos
 
-* Criar treinos
-* Editar treinos
-* Excluir treinos
-* Adicionar exercícios
-* Definir:
-
-  * Grupo muscular
-  * Séries
-  * Repetições
-  * Peso utilizado
+* Criar, editar e excluir treinos
+* Adicionar exercícios personalizados
+* Seleção por grupo muscular
+* Definição de séries, repetições e carga
+* Busca inteligente de exercícios utilizando o catálogo integrado
 
 ## 📜 Histórico
 
 * Visualização completa dos treinos realizados
 * Filtro por período
-* Edição de cargas/pesos registrados
+* Edição de pesos registrados
+* Consulta detalhada dos exercícios executados
 
 ## 📚 Catálogo de Exercícios
 
 * Base de dados em JSON
-* GIF demonstrativo
-* Instruções de execução
+* GIF demonstrativo para execução
+* Instruções detalhadas
 * Página individual para cada exercício
+* Navegação dinâmica utilizando parâmetros de rota
 
 ## 📊 Status e Estatísticas
 
-* Total de treinos por ano (com fração dos dias e percentual)
+* Total de treinos por ano
+* Percentual anual de frequência
 * Frequência por dia da semana (gráfico de barras)
-* Evolução de peso por exercício (gráfico de linha com filtro de período)
-* Filtro por ano automático (ano mais recente)
-* Visualização de variação de peso com tabela detalhada
+* Heatmap anual de atividades
+* Evolução de carga por exercício (gráfico de linha)
+* Filtro por ano
+* Seleção de músculo e exercício
+* Compatibilidade com exercícios personalizados criados pelo usuário
+
+## 👤 Configurações da Conta
+
+* Alteração de nome de usuário
+* Alteração de senha
+* Upload de foto de perfil
+* Alternância entre tema claro e escuro
+* Exclusão completa da conta e dos dados associados
 
 ## 🎨 Interface
 
+* Tema claro e escuro persistente
 * Modais interativos
-* Navegação intuitiva com Material Icons
+* Navegação com Material Icons
 * Página 404 personalizada
 * Layout responsivo (mobile, tablet e desktop)
-* Cards com estado de expansão persistente
+* Cards de treino com estado de expansão persistente
 
 ## 💾 Persistência Local
 
-* Usuários, treinos, histórico e estado dos cards armazenados em `localStorage`
+Os seguintes dados são armazenados em `localStorage`:
+
+* Usuários
+* Foto de perfil
+* Treinos
+* Histórico de atividades
+* Tema selecionado
+* Estado dos cards expandidos
 
 ---
 
@@ -150,17 +165,17 @@ Front-end/
 ├── public/                     # Arquivos estáticos
 ├── src/
 │   ├── components/
-│   │   ├── Conta/              # Componentes da página de conta
-│   │   ├── history/            # Componentes do histórico
-│   │   ├── home/               # Componentes da dashboard inicial
-│   │   ├── shared/             # Componentes reutilizáveis
-│   │   └── Training/           # Componentes de gerenciamento de treinos
-│   ├── context/                # Context API
-│   ├── data/                   # Base de dados local (JSON)
-│   ├── hooks/                  # Hooks customizados
-│   ├── pages/                  # Páginas da aplicação
-│   ├── services/               # Serviços e integrações
-│   ├── utils/                  # Funções utilitárias
+│   │   ├── Conta/
+│   │   ├── history/
+│   │   ├── home/
+│   │   ├── shared/
+│   │   └── Training/
+│   ├── context/
+│   ├── data/
+│   ├── hooks/
+│   ├── pages/
+│   ├── services/
+│   ├── utils/
 │   ├── App.tsx
 │   ├── main.tsx
 │   └── types.ts
@@ -179,11 +194,7 @@ Front-end/
 | `hooks`      | Hooks customizados para reutilização de lógica      |
 | `data`       | Catálogo local de exercícios                        |
 | `utils`      | Funções auxiliares da aplicação                     |
-| `services`   | Camada preparada para integrações externas          |
-
-```
-```
-
+| `services`   | Camada preparada para integrações futuras           |
 
 ---
 
@@ -193,7 +204,7 @@ Front-end/
 | ------------------ | ------------------------------------------------- |
 | TrainingCard       | Card expansível para exibição e edição de treinos |
 | ExerciseRow        | Linha de exercício com campos configuráveis       |
-| ExerciseSelect     | Seleção de exercícios a partir do JSON            |
+| ExerciseSelect     | Seleção de exercícios a partir do catálogo        |
 | MuscleSelect       | Filtro por grupo muscular                         |
 | ExercicioJsonModal | Modal com GIF e instruções                        |
 | AddEXButton        | Botão reutilizável para adicionar exercícios      |
@@ -201,7 +212,8 @@ Front-end/
 | Footer             | Navegação principal da aplicação                  |
 | Accordion          | Menu expansível                                   |
 | BarChart           | Gráfico de barras da frequência semanal           |
-| LineChart          | Gráfico de evolução de peso                       |
+| LineChart          | Gráfico de evolução de carga                      |
+| WorkoutHeatmap     | Heatmap anual de atividades                       |
 | ConfigSection      | Configurações da conta                            |
 | StatusSection      | Dashboard estatístico                             |
 
@@ -227,7 +239,7 @@ A aplicação utiliza recursos do React Router:
 
 ### useNavigate
 
-* Redirecionamento após login/logout
+* Redirecionamento após login e logout
 * Navegação para detalhes dos exercícios
 
 ### useLocation
@@ -266,11 +278,30 @@ Gerenciamento via `AuthContext` utilizando `localStorage`.
 
 * Simulação de envio por e-mail
 
+### Atualização de Perfil
+
+* Alteração de nome
+* Alteração de senha
+* Atualização de foto de perfil
+
+---
+
+# 🎨 Tema Escuro / Claro
+
+O sistema de temas é gerenciado por meio do `ThemeContext`.
+
+### Funcionalidades
+
+* Persistência automática da preferência do usuário
+* Aplicação global utilizando Tailwind CSS
+* Alternância em tempo real sem recarregar a página
+* Compatibilidade com componentes, formulários e gráficos
+
 ---
 
 # 🧪 Simulação de Dados
 
-### Exercícios
+## Exercícios
 
 Os exercícios são carregados de:
 
@@ -278,33 +309,34 @@ Os exercícios são carregados de:
 src/data/exercicios.json
 ```
 
-Cada item contém:
+Cada exercício contém:
 
 * Nome
 * Grupo muscular
 * GIF demonstrativo
-* Instruções de execução
+* Instruções detalhadas
 
-### Persistência
+## Persistência
 
 São armazenados em `localStorage`:
 
 * Usuários
+* Foto de perfil
 * Treinos
 * Histórico
-* Estado dos cards
+* Tema
+* Estado dos cards expandidos
 
 ---
 
 # 📱 Responsividade
 
-O projeto utiliza Tailwind CSS para adaptação entre dispositivos:
+O Tailwind CSS adapta automaticamente a interface para diferentes dispositivos.
 
 ### Mobile
 
 * Navegação inferior
 * Componentes empilhados
-* Scroll horizontal quando necessário
 
 ### Tablet
 
@@ -313,30 +345,32 @@ O projeto utiliza Tailwind CSS para adaptação entre dispositivos:
 ### Desktop
 
 * Footer lateral
-* Gráficos com largura controlada
-* Melhor aproveitamento do espaço
+* Gráficos com melhor aproveitamento do espaço
+* Layout otimizado para telas maiores
 
 ---
 
 # 🎯 Principais Conceitos Aplicados
 
-* Componentização com React + TypeScript
-* Context API
-* React Hooks (`useState`, `useEffect`, `useMemo`, `useCallback`)
+* React 18 + TypeScript
+* Context API (Autenticação, Treinos e Tema)
+* React Hooks (`useState`, `useEffect`, `useMemo`, `useCallback`, `useRef`)
+* React Router DOM v6
 * Rotas protegidas
 * Persistência local com `localStorage`
-* Gráficos nativos com SVG
+* Gráficos nativos utilizando SVG
+* Heatmap de atividades
+* Tema escuro/claro
+* Componentização e reutilização de componentes
 * Layout responsivo com Tailwind CSS
-* Hooks de navegação
+* Filtros dinâmicos
 * Página 404 personalizada
-* Componentes reutilizáveis
-* Estatísticas e filtros dinâmicos
 
 ---
 
 # 🎓 Projeto Acadêmico
 
-Este projeto foi desenvolvido como parte da disciplina de Desenvolvimento Web da PUC-Rio, aplicando conceitos modernos de desenvolvimento frontend e arquitetura de aplicações React.
+Este projeto foi desenvolvido como parte da disciplina de Desenvolvimento Web da PUC-Rio, aplicando conceitos modernos de frontend e arquitetura de aplicações React.
 
 ---
 

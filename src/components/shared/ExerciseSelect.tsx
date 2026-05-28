@@ -54,13 +54,13 @@ export default function ExerciseSelect({
       };
     }
 
-        // Desktop
+    // Desktop
     const minDesktopWidth = 320;
     let width = rect.width;
     if (width < minDesktopWidth) width = minDesktopWidth;
 
     let left = rect.left;
-        // Ajuste para não sair da tela
+    // Ajuste para não sair da tela
     if (left + width > window.innerWidth - padding) {
       left = window.innerWidth - width - padding;
     }
@@ -87,7 +87,7 @@ export default function ExerciseSelect({
         ref={inputRef}
         type="text"
         placeholder="Selecione o exercício"
-        className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm"
+        className="w-full border border-gray-300 dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
         value={selectedName}
         onChange={(e) => {
           onNameChange(e.target.value);
@@ -101,15 +101,15 @@ export default function ExerciseSelect({
           <div
             ref={portalRef}
             style={getPortalStyle()}
-            className="bg-white border rounded shadow overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded shadow overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           >
             {loading ? (
-              <div className="px-3 py-2 text-gray-400 text-sm">Carregando...</div>
+              <div className="px-3 py-2 text-gray-400 dark:text-gray-500 text-sm">Carregando...</div>
             ) : filtered.length > 0 ? (
               filtered.map((ex) => (
                 <div
                   key={ex.exerciseId}
-                  className="flex items-center gap-3 border-b border-gray-200 px-3 py-2 hover:bg-blue-50 cursor-pointer"
+                  className="flex items-center gap-3 border-b border-gray-200 dark:border-gray-700 px-3 py-2 hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer"
                   onClick={() => {
                     onSelect(ex);
                     setOpen(false);
@@ -120,13 +120,13 @@ export default function ExerciseSelect({
                     alt={ex.nome}
                     className="w-28 h-28 md:w-40 md:h-40 rounded object-cover shrink-0"
                   />
-                  <span className="text-sm md:text-base whitespace-normal wrap-break-word">
+                  <span className="text-sm md:text-base whitespace-normal wrap-break-word text-gray-700 dark:text-gray-200">
                     {ex.nome}
                   </span>
                 </div>
               ))
             ) : (
-              <div className="px-3 py-2 text-gray-400 text-sm">
+              <div className="px-3 py-2 text-gray-400 dark:text-gray-500 text-sm">
                 Nenhum exercício encontrado
               </div>
             )}

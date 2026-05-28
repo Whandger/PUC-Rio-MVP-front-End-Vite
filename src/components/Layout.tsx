@@ -11,7 +11,7 @@ export default function Layout() {
   }
 
   return (
-    <div className="flex flex-col h-dvh overflow-hidden font-sans">
+    <div className="flex flex-col h-dvh overflow-hidden font-sans dark:bg-gray-950">
       {/* Header sempre no topo */}
       <Header />
       
@@ -23,7 +23,7 @@ export default function Layout() {
         </div>
         
         {/* Conteúdo principal */}
-        <main className="flex-1 overflow-y-auto bg-gray-100">
+        <main className="flex-1 overflow-y-auto bg-gray-100 dark:bg-gray-700">
           <Outlet />
         </main>
       </div>
