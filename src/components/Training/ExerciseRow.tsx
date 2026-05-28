@@ -23,15 +23,38 @@ export default function ExerciseRow({
   initialExerciseId,
 }: Props) {
   const [selectedMuscle, setSelectedMuscle] = useState<string>("Músculo");
+  const [validImageIds, setValidImageIds] = useState<Set<string>>(new Set());
+  const [imagesLoading, setImagesLoading] = useState(true);
   const baseUrl = import.meta.env.BASE_URL;
+
   const muscles = [
     ...new Set(exerciciosData.flatMap((e) => e.musculoAlvo)),
   ].sort();
 
-  const filteredExercises =
-    selectedMuscle !== "Músculo"
-      ? exerciciosData.filter((e) => e.musculoAlvo.includes(selectedMuscle))
-      : [];
+  // Testa todas as imagens uma vez
+  useEffect(() => {
+    let cancelled = false;
+    const testImages = async () => {
+      setImagesLoading(true);
+      const results = await Promise.all(
+        exerciciosData.map(async (ex) => {
+          const ok = await new Promise<boolean>((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = ex.gifUrl;
+          });
+          return { id: ex.exerciseId, ok };
+        })
+      );
+      if (!cancelled) {
+        setValidImageIds(new Set(results.filter((r) => r.ok).map((r) => r.id)));
+        setImagesLoading(false);
+      }
+    };
+    testImages();
+    return () => { cancelled = true; };
+  }, [exerciciosData]);
 
   useEffect(() => {
     if (initialMuscle && muscles.includes(initialMuscle)) {
@@ -59,6 +82,16 @@ export default function ExerciseRow({
 
   const isMuscleSelected = selectedMuscle !== "Músculo";
 
+  // Filtra por músculo e imagens válidas
+  const filteredExercises =
+    isMuscleSelected
+      ? exerciciosData.filter(
+          (e) =>
+            e.musculoAlvo.includes(selectedMuscle) &&
+            validImageIds.has(e.exerciseId)
+        )
+      : [];
+
   return (
     <div className="flex items-center gap-1.5">
       {/* Músculo */}
@@ -77,6 +110,8 @@ export default function ExerciseRow({
             exercises={filteredExercises}
             selectedName={values.nomeExercicio}
             onSelect={handleExerciseSelect}
+            onNameChange={(name) => onChange("nomeExercicio", name)}
+            loading={imagesLoading}
           />
         ) : (
           <input
