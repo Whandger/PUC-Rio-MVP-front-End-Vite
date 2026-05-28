@@ -143,6 +143,7 @@ export default function LoginPage() {
                 <label className="flex items-center cursor-pointer">
                   <input
                     type="checkbox"
+                    style={{ accentColor: '#58a7e5' }}
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
                     className="mr-2 h-4 w-4 text-[#58a7e5] focus:ring-[#58a7e5] border-gray-300 rounded"
