@@ -171,7 +171,17 @@ export default function ConfigSection() {
         </div>
       </div>
 
-      {/* Deletar conta */}
+      {/* Logout + Deletar conta */}
+      <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+        <button
+          onClick={logout}
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-left"
+        >
+          <span className="material-icons text-gray-400">logout</span>
+          <span className="text-sm text-gray-700 dark:text-gray-300">Sair da conta</span>
+        </button>
+      </div>
+
       <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
         <button
           onClick={handleDeleteAccount}
