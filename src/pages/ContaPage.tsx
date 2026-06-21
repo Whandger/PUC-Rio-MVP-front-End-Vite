@@ -1,19 +1,11 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import Accordion from "../components/shared/Accordion";
 import ConfigSection from "../components/Conta/ConfigSection";
 import StatusSection from "../components/Conta/StatusSection";
 
 export default function ContaPage() {
-  const { logout } = useAuth();
-  const navigate = useNavigate();
-  const [openSection, setOpenSection] = useState<string | null>(null);
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
+  const [openSection, setOpenSection] = useState<string | null>(null);
 
   const handleToggle = (section: string) => {
     setOpenSection((prev) => (prev === section ? null : section));
@@ -62,16 +54,6 @@ export default function ContaPage() {
           >
             <StatusSection />
           </Accordion>
-        )}
-
-        {/* Botão Sair da conta só aparece quando nada está aberto */}
-        {openSection === null && (
-          <button
-            onClick={handleLogout}
-            className="w-full text-left px-4 py-3 hover:bg-red-50 text-red-500 hover:text-red-600 transition-colors font-medium mt-auto"
-          >
-            Sair da conta
-          </button>
         )}
       </div>
     </div>
